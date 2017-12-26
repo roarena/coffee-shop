@@ -1,7 +1,9 @@
 # MyLady Bucks
 
-*This project is part of the Udacity Android Developer NanoDegree
-All documentation about this are located in the **docs** folder.*
+*This project is part of the Udacity Android Developer NanoDegree  *
+*Documentation are located in the **docs** folder.  *
+*Client App, MyLady Bucks is located at **client** folder.  *
+*Server App, is located at **server** folder*
 
 **App Description:**
 Imagine how good it would be if you could ask for your coffee, without lines or wasting your time waiting for it to be ready.
