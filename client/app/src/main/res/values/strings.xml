@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyLady Bucks</string>
+    <string name="login_btn_login">Login</string>
+    <string name="login_btn_signup">Sign Up</string>
 </resources>
