@@ -3,4 +3,9 @@
     <color name="colorPrimary">#795548</color>
     <color name="colorPrimaryDark">#6D4C41</color>
     <color name="colorAccent">#FF5722</color>
+    <color name="colorPrimaryLight">#EDE7F6</color>
+    <color name="colorSecondary">#FFC107</color>
+    <color name="fui_bgEmail">#FF5722</color>
+
+    <color name="menu_not_checked">#424242</color>
 </resources>
