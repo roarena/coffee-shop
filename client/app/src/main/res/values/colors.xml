@@ -7,5 +7,6 @@
     <color name="colorSecondary">#FFC107</color>
     <color name="fui_bgEmail">#FF5722</color>
 
+    <color name="colorBackground">#E0E0E0</color>
     <color name="menu_not_checked">#424242</color>
 </resources>
