@@ -1,4 +1,4 @@
-package eu.rodrigocamara.myladybucks;
+package eu.rodrigocamara.myladybucks.screens;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -24,6 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.Log;
 
@@ -55,6 +56,15 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
+        // Load Navigation Drawer.
+        setupDrawerHeader();
+        setupDrawerContent(nvDrawer);
+
+        // Calls for Firebase to initialize user and login if it's a first time user.
+        initializeFirebase();
+    }
+
+    private void setupDrawerHeader() {
         /* Workaround due to navigation drawer issue. =(
         * https://github.com/JakeWharton/butterknife/issues/406
         * https://code.google.com/p/android/issues/detail?id=190226
@@ -63,11 +73,6 @@ public class MainActivity extends AppCompatActivity {
         mTvProfileName = ButterKnife.findById(headerLayout, R.id.tv_profile_name);
         mTvProfileEmail = ButterKnife.findById(headerLayout, R.id.tv_profile_email);
         mIvProfilePicture = ButterKnife.findById(headerLayout, R.id.profile_image);
-
-        setupDrawerContent(nvDrawer);
-
-        // Calls for Firebase to initialize user and login if it's a first time user.
-        initializeFirebase();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
@@ -101,12 +106,11 @@ public class MainActivity extends AppCompatActivity {
                 mUser = firebaseAuth.getCurrentUser();
                 if (mUser != null) {
                     // Already exists and it's logged.
-                    Picasso.with(getApplicationContext()).load(mUser.getPhotoUrl()).placeholder(R.drawable.profile).into(mIvProfilePicture);
-                    mTvProfileName.setText(mUser.getDisplayName());
-                    mTvProfileEmail.setText(mUser.getEmail());
-                    Log.printLog("User already logged. Name: " + mUser.getDisplayName());
+                    updateUserInformationUI();
                 } else {
                     // First time user.
+                    Log.printLog("New user, sending to Login Screen");
+
                     List<AuthUI.IdpConfig> providers = Arrays.asList(
                             new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
                             new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
@@ -121,6 +125,13 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+    }
+
+    private void updateUserInformationUI() {
+        Log.printLog("User already logged. uID: " + mUser.getUid());
+        Picasso.with(getApplicationContext()).load(mUser.getPhotoUrl()).placeholder(R.drawable.profile).into(mIvProfilePicture);
+        mTvProfileName.setText(mUser.getDisplayName());
+        mTvProfileEmail.setText(mUser.getEmail());
     }
 
     @Override
