@@ -9,4 +9,5 @@
 
     <color name="colorBackground">#E0E0E0</color>
     <color name="menu_not_checked">#424242</color>
+    <color name="text_color_for_icons">#757575</color>
 </resources>

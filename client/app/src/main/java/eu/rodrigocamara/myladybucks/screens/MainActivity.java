@@ -28,14 +28,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eu.rodrigocamara.myladybucks.R;
+import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
+import eu.rodrigocamara.myladybucks.screens.fragments.ProfileFragment;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.Log;
+import eu.rodrigocamara.myladybucks.utils.User;
 
 public class MainActivity extends AppCompatActivity {
     // Firebase declaration
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
-    private FirebaseUser mUser;
 
     // UI components declaration
     @BindView(R.id.drawer_layout)
@@ -82,8 +84,8 @@ public class MainActivity extends AppCompatActivity {
         * */
         View headerLayout = nvDrawer.inflateHeaderView(R.layout.drawer_header);
         mTvProfileName = ButterKnife.findById(headerLayout, R.id.tv_profile_name);
-        mTvProfileEmail = ButterKnife.findById(headerLayout, R.id.tv_profile_email);
-        mIvProfilePicture = ButterKnife.findById(headerLayout, R.id.profile_image);
+        mTvProfileEmail = ButterKnife.findById(headerLayout, R.id.tv_profile_phone);
+        mIvProfilePicture = ButterKnife.findById(headerLayout, R.id.iv_profile_screen_picture);
     }
 
     public void selectDrawerItem(MenuItem menuItem) {
@@ -93,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
         switch (menuItem.getItemId()) {
             case R.id.action_home:
                 fragmentClass = HomeFragment.class;
+                break;
+            case R.id.action_profile:
+                fragmentClass = ProfileFragment.class;
                 break;
             default:
                 fragmentClass = HomeFragment.class;
@@ -145,8 +150,8 @@ public class MainActivity extends AppCompatActivity {
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                mUser = firebaseAuth.getCurrentUser();
-                if (mUser != null) {
+                User.setUser(firebaseAuth.getCurrentUser());
+                if (User.getUser() != null) {
                     // Already exists and it's logged.
                     updateUserInformationUI();
                 } else {
@@ -170,10 +175,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void updateUserInformationUI() {
-        Log.printLog("User already logged. uID: " + mUser.getUid());
-        Picasso.with(getApplicationContext()).load(mUser.getPhotoUrl()).placeholder(R.drawable.profile).into(mIvProfilePicture);
-        mTvProfileName.setText(mUser.getDisplayName());
-        mTvProfileEmail.setText(mUser.getEmail());
+        Log.printLog("User already logged. uID: " + User.getUser().getUid());
+        Picasso.with(getApplicationContext()).load(User.getUser().getPhotoUrl()).placeholder(R.drawable.profile).into(mIvProfilePicture);
+        mTvProfileName.setText(User.getUser().getDisplayName());
+        mTvProfileEmail.setText(User.getUser().getEmail());
     }
 
     @Override
