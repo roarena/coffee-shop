@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
@@ -26,8 +27,8 @@ public class ProfileFragment extends Fragment {
     TextView mTvProfileName;
     @BindView(R.id.tv_profile_email)
     TextView mTvProfileEmail;
-    @BindView(R.id.tv_profile_phone)
-    TextView mTvProfilePhone;
+    @BindView(R.id.txt_phone_number)
+    EditText mTxtProfilePhone;
     @BindView(R.id.btn_signout)
     TextView mBtnProfileSignout;
     @BindView(R.id.btn_clear_favorites)
@@ -52,9 +53,7 @@ public class ProfileFragment extends Fragment {
             mTvProfileName.setText(User.getUser().getDisplayName());
             mTvProfileEmail.setText(User.getUser().getEmail());
             if (User.getUser().getPhoneNumber() != "") {
-                mTvProfilePhone.setText(User.getUser().getPhoneNumber());
-            } else {
-                mTvProfilePhone.setText(R.string.phone_number_not_found);
+                mTxtProfilePhone.setText(User.getUser().getPhoneNumber());
             }
             Picasso.with(context).load(User.getUser().getPhotoUrl()).placeholder(R.drawable.profile).into(mIvProfilePicture);
         }
