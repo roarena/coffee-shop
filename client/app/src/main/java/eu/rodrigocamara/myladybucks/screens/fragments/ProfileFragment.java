@@ -6,9 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
@@ -30,9 +32,9 @@ public class ProfileFragment extends Fragment {
     @BindView(R.id.txt_phone_number)
     EditText mTxtProfilePhone;
     @BindView(R.id.btn_signout)
-    TextView mBtnProfileSignout;
+    Button mBtnProfileSignout;
     @BindView(R.id.btn_clear_favorites)
-    TextView mBtnProfileClear;
+    Button mBtnProfileClear;
     @BindView(R.id.iv_profile_screen_picture)
     CircleImageView mIvProfilePicture;
 
@@ -44,7 +46,7 @@ public class ProfileFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         setUserInfo(view.getContext());
-
+        mBtnProfileClear.setOnClickListener(signoutClickListener());
         return view;
     }
 
@@ -59,11 +61,11 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    private View.OnClickListener phoneClickListener() {
+    private View.OnClickListener signoutClickListener() {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO Open Dialog? Maybe change this for a editText?
+                FirebaseAuth.getInstance().signOut();
             }
         };
     }
