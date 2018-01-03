@@ -7,4 +7,9 @@ package eu.rodrigocamara.myladybucks.utils;
 public class C {
     public static final String LOG_TAG = "MyLadyBucks";
     public static final int LOGIN_ID = 666;
+
+
+    // SharedPreferences
+    public static final String SHARED_PREF = "myLadyBucks_prefs";
+    public static final String PHONE_NUMBER_PREF = "phone_number_pref";
 }
