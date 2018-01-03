@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.Scopes;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
@@ -32,6 +31,7 @@ import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.ProfileFragment;
 import eu.rodrigocamara.myladybucks.utils.C;
+import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
 import eu.rodrigocamara.myladybucks.utils.Log;
 import eu.rodrigocamara.myladybucks.utils.User;
 
@@ -110,9 +110,8 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        // Insert the fragment by replacing any existing fragment
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        // Do Fragment Transaction with BackStack
+        FragmentHelper.doFragmentTransaction(fragment, this);
 
         // Highlight the selected item has been done by NavigationView
         menuItem.setChecked(true);
