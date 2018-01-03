@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -91,6 +92,18 @@ public class ProfileFragment extends Fragment {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                //TODO THIS NEEDS REFACTORING AFTER FRAGMENTS RE-WORK
+                Fragment fragment = null;
+                Class fragmentClass;
+                fragmentClass = HomeFragment.class;
+                try {
+                    fragment = (Fragment) fragmentClass.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+
                 mSharedPreferenceHelper.clearPrefs();
                 FirebaseAuth.getInstance().signOut();
             }
