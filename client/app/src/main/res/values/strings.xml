@@ -4,4 +4,6 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="phone_number_not_found">"Please add your phone number,\nclick here."</string>
+    <string name="facebook_application_id" translatable="false">1068441756631557</string>
+    <string name="facebook_login_protocol_scheme" translatable="false">fb1068441756631557</string>
 </resources>

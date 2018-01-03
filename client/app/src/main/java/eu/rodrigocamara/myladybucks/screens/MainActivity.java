@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.firebase.ui.auth.AuthUI;
+import com.google.android.gms.common.Scopes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
@@ -160,8 +161,8 @@ public class MainActivity extends AppCompatActivity {
 
                     List<AuthUI.IdpConfig> providers = Arrays.asList(
                             new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build());
-
+                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).setPermissions(Arrays.asList(Scopes.PROFILE)).build(),
+                            new AuthUI.IdpConfig.Builder(AuthUI.FACEBOOK_PROVIDER).build());
                     startActivityForResult(
                             AuthUI.getInstance()
                                     .createSignInIntentBuilder()
