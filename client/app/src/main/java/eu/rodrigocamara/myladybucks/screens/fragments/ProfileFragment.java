@@ -3,11 +3,13 @@ package eu.rodrigocamara.myladybucks.screens.fragments;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -22,6 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eu.rodrigocamara.myladybucks.R;
+import eu.rodrigocamara.myladybucks.screens.MainActivity;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.SharedPreferenceHelper;
 import eu.rodrigocamara.myladybucks.utils.User;
@@ -92,18 +95,6 @@ public class ProfileFragment extends Fragment {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO THIS NEEDS REFACTORING AFTER FRAGMENTS RE-WORK
-                Fragment fragment = null;
-                Class fragmentClass;
-                fragmentClass = HomeFragment.class;
-                try {
-                    fragment = (Fragment) fragmentClass.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-
                 mSharedPreferenceHelper.clearPrefs();
                 FirebaseAuth.getInstance().signOut();
             }

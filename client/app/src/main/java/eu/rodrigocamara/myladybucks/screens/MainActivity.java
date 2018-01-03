@@ -69,13 +69,13 @@ public class MainActivity extends AppCompatActivity {
             fragmentTransaction.commit();
         }
 
-
         // Load Navigation Drawer.
         setupDrawerHeader();
         setupDrawerContent(nvDrawer);
 
         // Calls for Firebase to initialize user and login if it's a first time user.
         initializeFirebase();
+
     }
 
     private void setupDrawerHeader() {
@@ -146,6 +146,21 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void goHome() {
+        //TODO THIS NEEDS REFACTORING AFTER FRAGMENTS RE-WORK
+        Fragment fragment = null;
+        Class fragmentClass;
+        fragmentClass = HomeFragment.class;
+        try {
+            fragment = (Fragment) fragmentClass.newInstance();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
+        nvDrawer.getMenu().getItem(0).setChecked(true);
+    }
+
     private void initializeFirebase() {
         mFirebaseAuth = FirebaseAuth.getInstance();
         mAuthStateListener = new FirebaseAuth.AuthStateListener() {
@@ -170,6 +185,7 @@ public class MainActivity extends AppCompatActivity {
                                     .setTheme(R.style.LoginTheme)
                                     .build(),
                             C.LOGIN_ID);
+                    goHome();
                 }
             }
         };
