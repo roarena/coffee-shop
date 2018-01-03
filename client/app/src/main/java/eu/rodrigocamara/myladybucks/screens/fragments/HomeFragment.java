@@ -17,6 +17,7 @@ import butterknife.ButterKnife;
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.AnnouncementsAdapter;
 import eu.rodrigocamara.myladybucks.pojos.Announcement;
+import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
 
 /**
  * Created by rodri on 30/12/2017.
@@ -45,7 +46,7 @@ public class HomeFragment extends Fragment {
         announcementRecyclerView.setAdapter(announcementAdapter);
 
         mockAds();
-
+        FragmentHelper.updateDrawerMenu(this.getActivity(), R.id.action_home);
         return view;
     }
 

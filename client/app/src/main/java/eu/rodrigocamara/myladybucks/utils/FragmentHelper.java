@@ -1,11 +1,16 @@
 package eu.rodrigocamara.myladybucks.utils;
 
+import android.app.Activity;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import eu.rodrigocamara.myladybucks.R;
+import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
 
 /**
  * Created by Rodrigo Câmara on 03/01/2018.
@@ -23,8 +28,23 @@ public class FragmentHelper {
         if (!isFragmentOutOfStack) { //fragment not in back stack, create it.
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.flContent, fragment);
-            fragmentTransaction.addToBackStack(backFragmentName);
+            if (backFragmentName != HomeFragment.class.getName()) {
+                fragmentTransaction.addToBackStack(backFragmentName);
+            } else {
+                // If we are HOME the only way to go is OUT.
+                fragmentManager.popBackStack();
+            }
             fragmentTransaction.commit();
+        }
+    }
+
+    public static void updateDrawerMenu(Activity activity, int menuItemToCheck) {
+        NavigationView navigation = activity.findViewById(R.id.nvView);
+        Menu drawer_menu = navigation.getMenu();
+        MenuItem menuItem;
+        menuItem = drawer_menu.findItem(menuItemToCheck);
+        if (!menuItem.isChecked()) {
+            menuItem.setChecked(true);
         }
     }
 }
