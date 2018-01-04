@@ -1,6 +1,7 @@
 package eu.rodrigocamara.myladybucks.utils;
 
 import android.app.Activity;
+import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -23,6 +24,27 @@ public class FragmentHelper {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         String backFragmentName = fragment.getClass().getName();
 
+        boolean isFragmentOutOfStack = fragmentManager.popBackStackImmediate(backFragmentName, 0);
+
+        if (!isFragmentOutOfStack) { //fragment not in back stack, create it.
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.flContent, fragment);
+            if (backFragmentName != HomeFragment.class.getName()) {
+                fragmentTransaction.addToBackStack(backFragmentName);
+            } else {
+                // If we are HOME the only way to go is OUT.
+                fragmentManager.popBackStack();
+            }
+            fragmentTransaction.commit();
+        }
+    }
+
+    public static void doFragmentTransaction(Fragment fragment, AppCompatActivity activity, Bundle bundle) {
+
+        FragmentTransaction fragmentTransaction;
+        FragmentManager fragmentManager = activity.getSupportFragmentManager();
+        String backFragmentName = fragment.getClass().getName();
+        fragment.setArguments(bundle);
         boolean isFragmentOutOfStack = fragmentManager.popBackStackImmediate(backFragmentName, 0);
 
         if (!isFragmentOutOfStack) { //fragment not in back stack, create it.

@@ -28,6 +28,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eu.rodrigocamara.myladybucks.R;
+import eu.rodrigocamara.myladybucks.screens.fragments.CoffeeMenuFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.ProfileFragment;
 import eu.rodrigocamara.myladybucks.utils.C;
@@ -99,6 +100,9 @@ public class MainActivity extends AppCompatActivity {
                 break;
             case R.id.action_profile:
                 fragmentClass = ProfileFragment.class;
+                break;
+            case R.id.action_menu:
+                fragmentClass = CoffeeMenuFragment.class;
                 break;
             default:
                 fragmentClass = HomeFragment.class;
