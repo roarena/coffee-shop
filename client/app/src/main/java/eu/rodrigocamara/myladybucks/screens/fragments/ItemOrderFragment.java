@@ -3,6 +3,7 @@ package eu.rodrigocamara.myladybucks.screens.fragments;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -59,8 +60,7 @@ public class ItemOrderFragment extends Fragment {
 
         ButterKnife.bind(this, view);
         mCoffee = Parcels.unwrap(getArguments().getParcelable("example"));
-        mOrderList = new ArrayList<>();
-        OrderHelper.getInstance().setOrderList(mOrderList);
+
         mTvCoffeeName.setText(mCoffee.getName());
         mTvCoffeeDesc.setText(mCoffee.getDescription());
         mTvTotalValue.setText(mCoffee.getPrice());
@@ -124,7 +124,8 @@ public class ItemOrderFragment extends Fragment {
                 order.setCoffee(mCoffee);
                 order.setQuantity(Integer.valueOf(mTvQuantity.getText().toString()));
                 OrderHelper.getInstance().getOrderList().add(order);
-                Class fragmentClass;
+                Snackbar.make(getView(),"Order added to cart",Snackbar.LENGTH_LONG).show();
+                /*Class fragmentClass;
                 fragmentClass = FullOrderFragment.class;
                 Fragment fragment = null;
                 try {
@@ -132,9 +133,9 @@ public class ItemOrderFragment extends Fragment {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-                Bundle bundle = new Bundle();
-                bundle.putParcelable("example", Parcels.wrap(OrderHelper.getInstance().getOrderList()));
-                FragmentHelper.doFragmentTransaction(fragment, (AppCompatActivity) getContext(), bundle);
+              //  Bundle bundle = new Bundle();
+              //  bundle.putParcelable("example", Parcels.wrap(OrderHelper.getInstance().getOrderList()));
+               // FragmentHelper.doFragmentTransaction(fragment, (AppCompatActivity) getContext(), bundle);*/
             }
         };
     }

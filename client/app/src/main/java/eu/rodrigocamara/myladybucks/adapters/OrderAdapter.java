@@ -61,18 +61,51 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(final OrderAdapter.MyViewHolder holder, int position) {
         Order order = orderList.get(position);
         holder.mTvCoffeName.setText(order.getCoffee().getName());
-        holder.mTvCoffePrice.setText(String.valueOf(Integer.valueOf(order.getCoffee().getPrice().substring(1)) * order.getQuantity()));
+        holder.mTvCoffePrice.setText("$" + String.valueOf(Integer.valueOf(order.getCoffee().getPrice().substring(1)) * order.getQuantity()));
         holder.mTvQuatity.setText(String.valueOf(order.getQuantity()));
+        holder.mIvRemoveCoffee.setOnClickListener(removeCoffeClickListener(holder, order));
     }
 
-    private View.OnClickListener clickListener(final Order order) {
+    private View.OnClickListener addCoffeClickListener(final OrderAdapter.MyViewHolder holder, final Order order) {
         return new View.OnClickListener() {
 
             @Override
             public void onClick(View view) {
-
+                addCoffee(holder, order);
             }
         };
+    }
+
+    private View.OnClickListener removeCoffeClickListener(final OrderAdapter.MyViewHolder holder, final Order order) {
+        return new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+                removeCoffee(holder, order);
+            }
+        };
+    }
+
+
+    private void addCoffee(final OrderAdapter.MyViewHolder holder, Order order) {
+        int quantity = Integer.valueOf(holder.mTvQuatity.getText().toString()) + 1;
+        holder.mTvQuatity.setText(String.format("%02d", quantity).toString());
+
+        float price = Float.parseFloat(holder.mTvQuatity.getText().toString().substring(1));
+        price = price + Float.parseFloat(order.getCoffee().getPrice().substring(1));
+        holder.mTvQuatity.setText("$" + String.valueOf(price));
+    }
+
+    private void removeCoffee(final OrderAdapter.MyViewHolder holder, Order order) {
+        int quantity = Integer.valueOf(holder.mTvQuatity.getText().toString());
+        if (quantity > 1) {
+            quantity = Integer.valueOf(holder.mTvQuatity.getText().toString()) - 1;
+            holder.mTvQuatity.setText(String.format("%02d", quantity).toString());
+
+            float price = Float.parseFloat(holder.mTvQuatity.getText().toString().substring(1));
+            price = price - Float.parseFloat(order.getCoffee().getPrice().substring(1));
+            holder.mTvQuatity.setText("$" + String.valueOf(price));
+        }
     }
 
     @Override

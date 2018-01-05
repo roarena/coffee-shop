@@ -1,5 +1,6 @@
 package eu.rodrigocamara.myladybucks.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import eu.rodrigocamara.myladybucks.pojos.Order;
@@ -10,7 +11,7 @@ import eu.rodrigocamara.myladybucks.pojos.Order;
 
 public class OrderHelper {
     private static OrderHelper instance = null;
-    List<Order> orderList;
+    static List<Order> orderList;
 
     protected OrderHelper() {
         // Exists only to defeat instantiation.
@@ -19,6 +20,7 @@ public class OrderHelper {
     public static OrderHelper getInstance() {
         if (instance == null) {
             instance = new OrderHelper();
+            orderList = new ArrayList<>();
         }
         return instance;
     }
