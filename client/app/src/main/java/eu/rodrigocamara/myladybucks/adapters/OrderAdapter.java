@@ -87,6 +87,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     }
 
 
+    @Override
+    public int getItemCount() {
+        return orderList.size();
+    }
     private void addCoffee(final OrderAdapter.MyViewHolder holder, Order order) {
         int quantity = Integer.valueOf(holder.mTvQuatity.getText().toString()) + 1;
         holder.mTvQuatity.setText(String.format("%02d", quantity).toString());
@@ -108,8 +112,4 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         }
     }
 
-    @Override
-    public int getItemCount() {
-        return orderList.size();
-    }
 }
