@@ -2,12 +2,14 @@ package eu.rodrigocamara.myladybucks.screens.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import org.parceler.Parcels;
 
@@ -28,6 +30,8 @@ import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
 public class FullOrderFragment extends Fragment {
     @BindView(R.id.rv_order)
     RecyclerView rvOrder;
+    @BindView(R.id.btn_add_more_items)
+    Button btnAddItems;
 
     private OrderAdapter mOrderAdapter;
     private List<Order> mOrderList;
@@ -41,7 +45,7 @@ public class FullOrderFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         mOrderList = new ArrayList<>();
-        mOrderList =  Parcels.unwrap(getArguments().getParcelable("example"));
+        mOrderList = Parcels.unwrap(getArguments().getParcelable("example"));
         mOrderAdapter = new OrderAdapter(view.getContext(), mOrderList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
@@ -49,6 +53,21 @@ public class FullOrderFragment extends Fragment {
         rvOrder.setItemAnimator(new DefaultItemAnimator());
         rvOrder.setAdapter(mOrderAdapter);
 
+
+        btnAddItems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Class fragmentClass;
+                fragmentClass = CoffeeMenuFragment.class;
+                Fragment fragment = null;
+                try {
+                    fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                FragmentHelper.doFragmentTransaction(fragment, (AppCompatActivity) getContext());
+            }
+        });
 
         FragmentHelper.updateDrawerMenu(this.getActivity(), R.id.action_menu);
 

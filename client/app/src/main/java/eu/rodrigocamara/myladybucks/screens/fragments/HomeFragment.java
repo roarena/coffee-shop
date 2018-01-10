@@ -1,7 +1,9 @@
 package eu.rodrigocamara.myladybucks.screens.fragments;
 
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -27,6 +29,9 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.rv_ads)
     RecyclerView announcementRecyclerView;
 
+    @BindView(R.id.fab_home_menu)
+    FloatingActionButton fabMenu;
+
     private AnnouncementsAdapter announcementAdapter;
     private List<Announcement> announcementList;
 
@@ -44,6 +49,21 @@ public class HomeFragment extends Fragment {
         announcementRecyclerView.setLayoutManager(mLayoutManager);
         announcementRecyclerView.setItemAnimator(new DefaultItemAnimator());
         announcementRecyclerView.setAdapter(announcementAdapter);
+
+        fabMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Class fragmentClass;
+                fragmentClass = CoffeeMenuFragment.class;
+                Fragment fragment = null;
+                try {
+                    fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                FragmentHelper.doFragmentTransaction(fragment, (AppCompatActivity) getContext());
+            }
+        });
 
         mockAds();
         FragmentHelper.updateDrawerMenu(this.getActivity(), R.id.action_home);

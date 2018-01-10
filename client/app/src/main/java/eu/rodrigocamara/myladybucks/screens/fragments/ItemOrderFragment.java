@@ -3,9 +3,11 @@ package eu.rodrigocamara.myladybucks.screens.fragments;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +50,6 @@ public class ItemOrderFragment extends Fragment {
     @BindView(R.id.btn_order_item_add_cart)
     Button mBtnAddCart;
 
-
     private Coffee mCoffee;
     private List<Order> mOrderList;
 
@@ -68,6 +69,7 @@ public class ItemOrderFragment extends Fragment {
         mIvAddCoffee.setOnClickListener(addCoffeeListener());
         mIvRemoveCoffeee.setOnClickListener(removeCoffeeListener());
         mBtnAddCart.setOnClickListener(addToCart());
+
         FragmentHelper.updateDrawerMenu(this.getActivity(), R.id.action_menu);
         toggleRemoveButton();
         return view;
@@ -124,18 +126,16 @@ public class ItemOrderFragment extends Fragment {
                 order.setCoffee(mCoffee);
                 order.setQuantity(Integer.valueOf(mTvQuantity.getText().toString()));
                 OrderHelper.getInstance().getOrderList().add(order);
-                Snackbar.make(getView(),"Order added to cart",Snackbar.LENGTH_LONG).show();
-                /*Class fragmentClass;
-                fragmentClass = FullOrderFragment.class;
+                Snackbar.make(getView(), "Order added to cart", Snackbar.LENGTH_LONG).show();
+                Class fragmentClass;
+                fragmentClass = CoffeeMenuFragment.class;
                 Fragment fragment = null;
                 try {
                     fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-              //  Bundle bundle = new Bundle();
-              //  bundle.putParcelable("example", Parcels.wrap(OrderHelper.getInstance().getOrderList()));
-               // FragmentHelper.doFragmentTransaction(fragment, (AppCompatActivity) getContext(), bundle);*/
+                FragmentHelper.doFragmentTransaction(fragment, (AppCompatActivity) getContext());
             }
         };
     }
