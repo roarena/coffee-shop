@@ -2,6 +2,11 @@ package eu.rodrigocamara.myladybucks.pojos;
 
 import org.parceler.Parcel;
 
+import java.util.Currency;
+import java.util.Locale;
+
+import eu.rodrigocamara.myladybucks.utils.C;
+
 /**
  * Created by Rodrigo Câmara on 04/01/2018.
  */
@@ -10,13 +15,14 @@ public class Coffee {
     private String name;
     private String description;
     private String imageURL;
-    private String price;
+    private int price;
+    private int quantity;
 
     public Coffee() {
 
     }
 
-    public Coffee(String name, String description, String imageURL, String price) {
+    public Coffee(String name, String description, String imageURL, int price) {
         this.name = name;
         this.description = description;
         this.imageURL = imageURL;
@@ -47,11 +53,23 @@ public class Coffee {
         this.imageURL = imageURL;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
+    }
+
+    public String printPrice() {
+        return Currency.getInstance(Locale.getDefault()).getSymbol() + getPrice();
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 }

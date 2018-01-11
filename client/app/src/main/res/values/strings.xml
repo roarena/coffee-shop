@@ -6,4 +6,17 @@
     <string name="phone_number_not_found">"Please add your phone number,\nclick here."</string>
     <string name="facebook_application_id" translatable="false">1068441756631557</string>
     <string name="facebook_login_protocol_scheme" translatable="false">fb1068441756631557</string>
+
+
+    <string name="menu_title">Coffee Menu</string>
+
+    <string name="generic_total_label">Total:</string>
+    <string name="generic_add_more_items_button">Add more items</string>
+    <string name="go_to_cart_button">Go to Cart</string>
+    <string name="snack_bar_item_added">%1$d %2$s added to cart.</string>
+    <string name="snack_bar_item_error"></string>
+
+    <string name="item_default_quantity">01</string>
+    <string name="add_to_cart_button">Add to cart</string>
+    <string name="comments_hint">Comments</string>
 </resources>

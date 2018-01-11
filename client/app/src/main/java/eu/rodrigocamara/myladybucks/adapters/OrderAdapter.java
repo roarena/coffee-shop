@@ -61,7 +61,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public void onBindViewHolder(final OrderAdapter.MyViewHolder holder, int position) {
         Order order = orderList.get(position);
         holder.mTvCoffeName.setText(order.getCoffee().getName());
-        holder.mTvCoffePrice.setText("$" + String.valueOf(Integer.valueOf(order.getCoffee().getPrice().substring(1)) * order.getQuantity()));
+        holder.mTvCoffePrice.setText("$" + (order.getCoffee().getPrice()) * order.getQuantity());
         holder.mTvQuatity.setText(String.valueOf(order.getQuantity()));
         holder.mIvRemoveCoffee.setOnClickListener(removeCoffeClickListener(holder, order));
     }
@@ -91,12 +91,13 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
     public int getItemCount() {
         return orderList.size();
     }
+
     private void addCoffee(final OrderAdapter.MyViewHolder holder, Order order) {
         int quantity = Integer.valueOf(holder.mTvQuatity.getText().toString()) + 1;
         holder.mTvQuatity.setText(String.format("%02d", quantity).toString());
 
         float price = Float.parseFloat(holder.mTvQuatity.getText().toString().substring(1));
-        price = price + Float.parseFloat(order.getCoffee().getPrice().substring(1));
+        price = price + order.getCoffee().getPrice();
         holder.mTvQuatity.setText("$" + String.valueOf(price));
     }
 
@@ -107,7 +108,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
             holder.mTvQuatity.setText(String.format("%02d", quantity).toString());
 
             float price = Float.parseFloat(holder.mTvQuatity.getText().toString().substring(1));
-            price = price - Float.parseFloat(order.getCoffee().getPrice().substring(1));
+            price = price - order.getCoffee().getPrice();
             holder.mTvQuatity.setText("$" + String.valueOf(price));
         }
     }

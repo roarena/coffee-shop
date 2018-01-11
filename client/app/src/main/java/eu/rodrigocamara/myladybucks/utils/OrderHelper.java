@@ -3,6 +3,7 @@ package eu.rodrigocamara.myladybucks.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import eu.rodrigocamara.myladybucks.pojos.Coffee;
 import eu.rodrigocamara.myladybucks.pojos.Order;
 
 /**
@@ -11,10 +12,9 @@ import eu.rodrigocamara.myladybucks.pojos.Order;
 
 public class OrderHelper {
     private static OrderHelper instance = null;
-    static List<Order> orderList;
+    static List<Coffee> orderList;
 
     protected OrderHelper() {
-        // Exists only to defeat instantiation.
     }
 
     public static OrderHelper getInstance() {
@@ -25,11 +25,11 @@ public class OrderHelper {
         return instance;
     }
 
-    public List<Order> getOrderList() {
+    public List<Coffee> getOrderList() {
         return orderList;
     }
 
-    public void setOrderList(List<Order> orderList) {
+    public void setOrderList(List<Coffee> orderList) {
         this.orderList = orderList;
     }
 }

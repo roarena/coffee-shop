@@ -22,8 +22,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.OrderAdapter;
-import eu.rodrigocamara.myladybucks.pojos.Coffee;
 import eu.rodrigocamara.myladybucks.pojos.Order;
+import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
 import eu.rodrigocamara.myladybucks.utils.OrderHelper;
 
@@ -32,17 +32,17 @@ import eu.rodrigocamara.myladybucks.utils.OrderHelper;
  */
 
 public class FullOrderFragment extends Fragment {
-    @BindView(R.id.rv_order)
+    @BindView(R.id.rv_generic)
     RecyclerView rvOrder;
 
     @Nullable
-    @BindView(R.id.btn_add_more_items)
+    @BindView(R.id.btn_generic_add_more_items)
     Button btnAddItems;
 
-    @BindView(R.id.tv_order_full_item_total_value)
+    @BindView(R.id.tv_generic_total_value)
     TextView tvTotalValue;
 
-    @BindView(R.id.btn_place_order)
+    @BindView(R.id.btn_generic)
     Button btnPlaceOrder;
 
     private OrderAdapter mOrderAdapter;
@@ -57,7 +57,7 @@ public class FullOrderFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         mOrderList = new ArrayList<>();
-        mOrderList = Parcels.unwrap(getArguments().getParcelable("example"));
+        mOrderList = Parcels.unwrap(getArguments().getParcelable(C.BUNDLE_COFFEE));
         mOrderAdapter = new OrderAdapter(view.getContext(), mOrderList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);
@@ -109,7 +109,7 @@ public class FullOrderFragment extends Fragment {
     private int setFinalOrderValue() {
         int price = 0;
         for (Order order : mOrderList) {
-            price = price + (Integer.valueOf(order.getQuantity()) * Integer.valueOf(order.getCoffee().getPrice().substring(1)));
+            price = price + (Integer.valueOf(order.getQuantity()) * (order.getCoffee().getPrice()));
         }
         return price;
     }

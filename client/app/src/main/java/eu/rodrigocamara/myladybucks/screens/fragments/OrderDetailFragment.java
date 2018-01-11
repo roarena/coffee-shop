@@ -20,7 +20,9 @@ import butterknife.ButterKnife;
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.OrderAdapter;
 import eu.rodrigocamara.myladybucks.adapters.OrderDetailAdapter;
+import eu.rodrigocamara.myladybucks.pojos.Coffee;
 import eu.rodrigocamara.myladybucks.pojos.Order;
+import eu.rodrigocamara.myladybucks.utils.C;
 
 /**
  * Created by Rodrigo Câmara on 10/01/2018.
@@ -28,7 +30,7 @@ import eu.rodrigocamara.myladybucks.pojos.Order;
 
 public class OrderDetailFragment extends Fragment {
     private OrderDetailAdapter mOrderAdapter;
-    private List<Order> mOrderList;
+    private List<Coffee> mOrderList;
     @BindView(R.id.rv_order_detail)
     RecyclerView rvOrder;
 
@@ -40,7 +42,7 @@ public class OrderDetailFragment extends Fragment {
         ButterKnife.bind(this, view);
 
         mOrderList = new ArrayList<>();
-        mOrderList = Parcels.unwrap(getArguments().getParcelable("example"));
+        mOrderList = Parcels.unwrap(getArguments().getParcelable(C.BUNDLE_COFFEE));
         mOrderAdapter = new OrderDetailAdapter(view.getContext(), mOrderList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.VERTICAL, false);

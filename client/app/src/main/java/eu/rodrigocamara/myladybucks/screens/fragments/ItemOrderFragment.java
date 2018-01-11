@@ -3,11 +3,7 @@ package eu.rodrigocamara.myladybucks.screens.fragments;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,16 +13,14 @@ import android.widget.TextView;
 
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.rodrigocamara.myladybucks.R;
+import eu.rodrigocamara.myladybucks.listeners.ClickListeners;
+import eu.rodrigocamara.myladybucks.listeners.TextChangeListeners;
 import eu.rodrigocamara.myladybucks.pojos.Coffee;
-import eu.rodrigocamara.myladybucks.pojos.Order;
+import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
-import eu.rodrigocamara.myladybucks.utils.OrderHelper;
 
 /**
  * Created by Rodrigo Câmara on 04/01/2018.
@@ -46,12 +40,11 @@ public class ItemOrderFragment extends Fragment {
     @BindView(R.id.iv_order_item_add)
     ImageView mIvAddCoffee;
     @BindView(R.id.iv_order_item_remove)
-    ImageView mIvRemoveCoffeee;
+    ImageView mIvRemoveCoffee;
     @BindView(R.id.btn_order_item_add_cart)
     Button mBtnAddCart;
 
     private Coffee mCoffee;
-    private List<Order> mOrderList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -60,83 +53,22 @@ public class ItemOrderFragment extends Fragment {
                 container, false);
 
         ButterKnife.bind(this, view);
-        mCoffee = Parcels.unwrap(getArguments().getParcelable("example"));
+        mCoffee = Parcels.unwrap(getArguments().getParcelable(C.BUNDLE_COFFEE));
 
         mTvCoffeeName.setText(mCoffee.getName());
         mTvCoffeeDesc.setText(mCoffee.getDescription());
-        mTvTotalValue.setText(mCoffee.getPrice());
-        mTvItemPrice.setText(mCoffee.getPrice());
-        mIvAddCoffee.setOnClickListener(addCoffeeListener());
-        mIvRemoveCoffeee.setOnClickListener(removeCoffeeListener());
-        mBtnAddCart.setOnClickListener(addToCart());
+        mTvTotalValue.setText(mCoffee.printPrice());
+        mTvItemPrice.setText(mCoffee.printPrice());
+
+        mIvAddCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(mCoffee, mTvQuantity, mTvTotalValue, false));
+        mIvRemoveCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(mCoffee, mTvQuantity, mTvTotalValue, true));
+        mBtnAddCart.setOnClickListener(ClickListeners.addToCartListener(getContext(), mCoffee, mTvQuantity));
+        mTvQuantity.addTextChangedListener(TextChangeListeners.coffeeQuantityListener(mIvRemoveCoffee));
+
+        mIvRemoveCoffee.setEnabled(false);
+        mIvRemoveCoffee.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
 
         FragmentHelper.updateDrawerMenu(this.getActivity(), R.id.action_menu);
-        toggleRemoveButton();
         return view;
-    }
-
-    private View.OnClickListener addCoffeeListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int quantity = Integer.valueOf(mTvQuantity.getText().toString()) + 1;
-                mTvQuantity.setText(String.format("%02d", quantity).toString());
-
-                float price = Float.parseFloat(mTvTotalValue.getText().toString().substring(1));
-                price = price + Float.parseFloat(mCoffee.getPrice().substring(1));
-                mTvTotalValue.setText("$" + String.valueOf(price));
-                toggleRemoveButton();
-            }
-        };
-    }
-
-    private View.OnClickListener removeCoffeeListener() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                int quantity = Integer.valueOf(mTvQuantity.getText().toString());
-                if (quantity > 1) {
-                    quantity = Integer.valueOf(mTvQuantity.getText().toString()) - 1;
-                    mTvQuantity.setText(String.format("%02d", quantity).toString());
-
-                    float price = Float.parseFloat(mTvTotalValue.getText().toString().substring(1));
-                    price = price - Float.parseFloat(mCoffee.getPrice().substring(1));
-                    mTvTotalValue.setText("$" + String.valueOf(price));
-                }
-                toggleRemoveButton();
-            }
-        };
-    }
-
-    private void toggleRemoveButton() {
-        if (Integer.valueOf(mTvQuantity.getText().toString()) > 1) {
-            mIvRemoveCoffeee.setEnabled(true);
-            mIvRemoveCoffeee.setColorFilter(null);
-        } else {
-            mIvRemoveCoffeee.setEnabled(false);
-            mIvRemoveCoffeee.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
-        }
-    }
-
-    private View.OnClickListener addToCart() {
-        return new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Order order = new Order();
-                order.setCoffee(mCoffee);
-                order.setQuantity(Integer.valueOf(mTvQuantity.getText().toString()));
-                OrderHelper.getInstance().getOrderList().add(order);
-                Snackbar.make(getView(), "Order added to cart", Snackbar.LENGTH_LONG).show();
-                Class fragmentClass;
-                fragmentClass = CoffeeMenuFragment.class;
-                Fragment fragment = null;
-                try {
-                    fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                FragmentHelper.doFragmentTransaction(fragment, (AppCompatActivity) getContext());
-            }
-        };
     }
 }

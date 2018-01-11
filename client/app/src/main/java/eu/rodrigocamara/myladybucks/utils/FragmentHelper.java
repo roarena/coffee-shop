@@ -11,8 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import eu.rodrigocamara.myladybucks.R;
-import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.OrderDetailFragment;
+import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
 
 /**
  * Created by Rodrigo Câmara on 03/01/2018.

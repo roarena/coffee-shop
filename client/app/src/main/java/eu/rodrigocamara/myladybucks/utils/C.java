@@ -12,4 +12,9 @@ public class C {
     // SharedPreferences
     public static final String SHARED_PREF = "myLadyBucks_prefs";
     public static final String PHONE_NUMBER_PREF = "phone_number_pref";
+
+    // Bundle Constants
+    public static final String BUNDLE_COFFEE = "bundle_coffee";
+    public static final String BUNDLE_ORDER = "bundle_order";
+    
 }
