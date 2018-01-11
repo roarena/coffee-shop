@@ -12,6 +12,7 @@ import android.view.MenuItem;
 
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
+import eu.rodrigocamara.myladybucks.screens.fragments.OrderDetailFragment;
 
 /**
  * Created by Rodrigo Câmara on 03/01/2018.
@@ -23,13 +24,17 @@ public class FragmentHelper {
         FragmentTransaction fragmentTransaction;
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         String backFragmentName = fragment.getClass().getName();
-
+        String homeFragment = HomeFragment.class.getName();
         boolean isFragmentOutOfStack = fragmentManager.popBackStackImmediate(backFragmentName, 0);
 
         if (!isFragmentOutOfStack) { //fragment not in back stack, create it.
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.flContent, fragment);
             if (backFragmentName != HomeFragment.class.getName()) {
+                if (backFragmentName == OrderDetailFragment.class.getName()) {
+                    // If we are in order detail, the only way to go is Home.
+                    fragmentManager.popBackStack();
+                }
                 fragmentTransaction.addToBackStack(backFragmentName);
             } else {
                 // If we are HOME the only way to go is OUT.
@@ -45,12 +50,17 @@ public class FragmentHelper {
         FragmentManager fragmentManager = activity.getSupportFragmentManager();
         String backFragmentName = fragment.getClass().getName();
         fragment.setArguments(bundle);
+        String homeFragment = HomeFragment.class.getName();
         boolean isFragmentOutOfStack = fragmentManager.popBackStackImmediate(backFragmentName, 0);
 
         if (!isFragmentOutOfStack) { //fragment not in back stack, create it.
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.flContent, fragment);
             if (backFragmentName != HomeFragment.class.getName()) {
+                if (backFragmentName == OrderDetailFragment.class.getName()) {
+                    // If we are in order detail, the only way to go is Home.
+                    fragmentManager.popBackStack();
+                }
                 fragmentTransaction.addToBackStack(backFragmentName);
             } else {
                 // If we are HOME the only way to go is OUT.

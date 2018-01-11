@@ -15,7 +15,7 @@
             android:title="Menu" />
 
         <item
-            android:id="@+id/action_cart"
+            android:id="@+id/action_purchases"
             android:enabled="true"
             android:icon="@drawable/cart"
             android:title="Purchases" />

@@ -104,6 +104,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.action_menu:
                 fragmentClass = CoffeeMenuFragment.class;
                 break;
+            case R.id.action_purchases:
+                fragmentClass = CoffeeMenuFragment.class;
+                break;
             default:
                 fragmentClass = HomeFragment.class;
         }
