@@ -2,6 +2,7 @@ package eu.rodrigocamara.myladybucks.screens;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
@@ -92,25 +93,39 @@ public class MainActivity extends AppCompatActivity {
 
     public void selectDrawerItem(MenuItem menuItem) {
         // Create a new fragment and specify the fragment to show based on nav item clicked
-        Fragment fragment = null;
-        Class fragmentClass;
+
         switch (menuItem.getItemId()) {
             case R.id.action_home:
-                fragmentClass = HomeFragment.class;
+                goToFragment(HomeFragment.class);
                 break;
             case R.id.action_profile:
-                fragmentClass = ProfileFragment.class;
+                goToFragment(ProfileFragment.class);
                 break;
             case R.id.action_menu:
-                fragmentClass = CoffeeMenuFragment.class;
+                goToFragment(CoffeeMenuFragment.class);
                 break;
             case R.id.action_purchases:
-                fragmentClass = CoffeeMenuFragment.class;
+                goToFragment(CoffeeMenuFragment.class);
+                break;
+            case R.id.action_git:
+                    Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/roarena/mylady-bucks"));
+                startActivity(browserIntent);
                 break;
             default:
-                fragmentClass = HomeFragment.class;
+                goToFragment(HomeFragment.class);
         }
 
+
+        // Highlight the selected item has been done by NavigationView
+        menuItem.setChecked(true);
+        // Set action bar title
+        setTitle(menuItem.getTitle());
+        // Close the navigation drawer
+        mDrawer.closeDrawers();
+    }
+
+    private void goToFragment(Class fragmentClass) {
+        Fragment fragment = null;
         try {
             fragment = (Fragment) fragmentClass.newInstance();
         } catch (Exception e) {
@@ -119,13 +134,6 @@ public class MainActivity extends AppCompatActivity {
 
         // Do Fragment Transaction with BackStack
         FragmentHelper.doFragmentTransaction(fragment, this);
-
-        // Highlight the selected item has been done by NavigationView
-        menuItem.setChecked(true);
-        // Set action bar title
-        setTitle(menuItem.getTitle());
-        // Close the navigation drawer
-        mDrawer.closeDrawers();
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {

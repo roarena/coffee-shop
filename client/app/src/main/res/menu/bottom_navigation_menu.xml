@@ -27,11 +27,22 @@
                         android:enabled="true"
                         android:icon="@drawable/account"
                         android:title="Profile" />
+                </group>
+            </menu>
+        </item>
+        <item android:title="About">
+            <menu>
+                <group android:checkableBehavior="single">
                     <item
-                        android:id="@+id/action_settings"
+                        android:id="@+id/action_credits"
                         android:enabled="true"
-                        android:icon="@drawable/settings"
-                        android:title="Settings" />
+                        android:icon="@drawable/information_outline"
+                        android:title="Credits" />
+                    <item
+                        android:id="@+id/action_git"
+                        android:enabled="true"
+                        android:icon="@drawable/github_circle"
+                        android:title="Git Hub" />
                 </group>
             </menu>
         </item>
