@@ -8,15 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.squareup.picasso.Picasso;
-
+import java.util.Currency;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.rodrigocamara.myladybucks.R;
-import eu.rodrigocamara.myladybucks.pojos.Order;
-import eu.rodrigocamara.myladybucks.utils.Log;
+import eu.rodrigocamara.myladybucks.listeners.ClickListeners;
+import eu.rodrigocamara.myladybucks.listeners.TextChangeListeners;
+import eu.rodrigocamara.myladybucks.pojos.Coffee;
+import eu.rodrigocamara.myladybucks.interfaces.QuantityHandler;
 
 /**
  * Created by Rodrigo Câmara on 04/01/2018.
@@ -24,19 +26,22 @@ import eu.rodrigocamara.myladybucks.utils.Log;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
     Context mContext;
-    List<Order> orderList;
+    List<Coffee> orderList;
+    private QuantityHandler quantityHandler;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_full_coffee_name)
-        TextView mTvCoffeName;
+        TextView mTvCoffeeName;
         @BindView(R.id.tv_full_coffee_price)
-        TextView mTvCoffePrice;
+        TextView mTvCoffeePrice;
         @BindView(R.id.tv_order_full_quantity)
-        TextView mTvQuatity;
+        TextView mTvQuantity;
         @BindView(R.id.iv_order_full_add)
         ImageView mIvAddCoffee;
         @BindView(R.id.iv_order_full_remove)
         ImageView mIvRemoveCoffee;
+        @BindView(R.id.iv_delete_coffee)
+        ImageView mIvDeleteCoffee;
 
         public MyViewHolder(View view) {
             super(view);
@@ -45,9 +50,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     }
 
-    public OrderAdapter(Context mContext, List<Order> orderList) {
+    public OrderAdapter(Context mContext, List<Coffee> orderList, QuantityHandler quantityHandler) {
         this.mContext = mContext;
         this.orderList = orderList;
+        this.quantityHandler = quantityHandler;
     }
 
     @Override
@@ -59,58 +65,18 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
 
     @Override
     public void onBindViewHolder(final OrderAdapter.MyViewHolder holder, int position) {
-        Order order = orderList.get(position);
-        holder.mTvCoffeName.setText(order.getCoffee().getName());
-        holder.mTvCoffePrice.setText("$" + (order.getCoffee().getPrice()) * order.getQuantity());
-        holder.mTvQuatity.setText(String.valueOf(order.getQuantity()));
-        holder.mIvRemoveCoffee.setOnClickListener(removeCoffeClickListener(holder, order));
+        Coffee coffee = orderList.get(position);
+        holder.mTvCoffeeName.setText(coffee.getName());
+        holder.mTvCoffeePrice.setText(Currency.getInstance(Locale.getDefault()).getSymbol() + (coffee.getPrice()) * coffee.getQuantity());
+        holder.mTvQuantity.setText(String.valueOf(coffee.getQuantity()));
+        holder.mIvRemoveCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(coffee, holder.mTvQuantity, holder.mTvCoffeePrice, true, position));
+        holder.mIvAddCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(coffee, holder.mTvQuantity, holder.mTvCoffeePrice, false, position));
+        holder.mTvQuantity.addTextChangedListener(TextChangeListeners.coffeeQuantityListener(quantityHandler));
+        holder.mIvDeleteCoffee.setOnClickListener(ClickListeners.deleteCoffee(mContext, position, this, quantityHandler));
     }
-
-    private View.OnClickListener addCoffeClickListener(final OrderAdapter.MyViewHolder holder, final Order order) {
-        return new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                addCoffee(holder, order);
-            }
-        };
-    }
-
-    private View.OnClickListener removeCoffeClickListener(final OrderAdapter.MyViewHolder holder, final Order order) {
-        return new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                removeCoffee(holder, order);
-            }
-        };
-    }
-
 
     @Override
     public int getItemCount() {
         return orderList.size();
     }
-
-    private void addCoffee(final OrderAdapter.MyViewHolder holder, Order order) {
-        int quantity = Integer.valueOf(holder.mTvQuatity.getText().toString()) + 1;
-        holder.mTvQuatity.setText(String.format("%02d", quantity).toString());
-
-        float price = Float.parseFloat(holder.mTvQuatity.getText().toString().substring(1));
-        price = price + order.getCoffee().getPrice();
-        holder.mTvQuatity.setText("$" + String.valueOf(price));
-    }
-
-    private void removeCoffee(final OrderAdapter.MyViewHolder holder, Order order) {
-        int quantity = Integer.valueOf(holder.mTvQuatity.getText().toString());
-        if (quantity > 1) {
-            quantity = Integer.valueOf(holder.mTvQuatity.getText().toString()) - 1;
-            holder.mTvQuatity.setText(String.format("%02d", quantity).toString());
-
-            float price = Float.parseFloat(holder.mTvQuatity.getText().toString().substring(1));
-            price = price - order.getCoffee().getPrice();
-            holder.mTvQuatity.setText("$" + String.valueOf(price));
-        }
-    }
-
 }

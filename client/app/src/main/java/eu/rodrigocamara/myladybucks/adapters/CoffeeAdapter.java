@@ -66,7 +66,7 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.MyViewHold
         holder.mTvCoffeePrice.setText(coffee.printPrice());
         holder.mClItemMenu.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext));
         holder.mIvCoffeePicture.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext));
-
+        //TODO Get Image From FireBase
         //Picasso.with(mContext).load(coffee.getImageURL()).into(holder.mIvCoffeePicture);
     }
 

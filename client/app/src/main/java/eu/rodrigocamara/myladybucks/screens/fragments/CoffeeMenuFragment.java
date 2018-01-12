@@ -38,7 +38,6 @@ public class CoffeeMenuFragment extends Fragment {
 
     private CoffeeAdapter mCoffeeAdapter;
     private List<Coffee> mCoffeeList;
-    private static View coordinatorView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -57,7 +56,7 @@ public class CoffeeMenuFragment extends Fragment {
 
     private void setUIComponents(Context context) {
         tvTitle.setText(R.string.menu_title);
-        
+
         if (OrderHelper.getInstance().getOrderList().size() > 0) {
             btnCart.setVisibility(View.VISIBLE);
             btnCart.setOnClickListener(ClickListeners.goToCartListener(context));
@@ -66,7 +65,6 @@ public class CoffeeMenuFragment extends Fragment {
 
         mCoffeeList = new ArrayList<>();
         mCoffeeAdapter = new CoffeeAdapter(context, mCoffeeList);
-        coordinatorView = getView();
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
         rvCoffee.setLayoutManager(mLayoutManager);
         rvCoffee.setItemAnimator(new DefaultItemAnimator());

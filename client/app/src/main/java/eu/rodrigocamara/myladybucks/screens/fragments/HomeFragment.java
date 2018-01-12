@@ -3,7 +3,6 @@ package eu.rodrigocamara.myladybucks.screens.fragments;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.AnnouncementsAdapter;
+import eu.rodrigocamara.myladybucks.listeners.ClickListeners;
 import eu.rodrigocamara.myladybucks.pojos.Announcement;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
 
@@ -27,13 +27,13 @@ import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
 
 public class HomeFragment extends Fragment {
     @BindView(R.id.rv_ads)
-    RecyclerView announcementRecyclerView;
+    RecyclerView mAnnouncementRecyclerView;
 
     @BindView(R.id.fab_home_menu)
-    FloatingActionButton fabMenu;
+    FloatingActionButton mFabMenu;
 
-    private AnnouncementsAdapter announcementAdapter;
-    private List<Announcement> announcementList;
+    private AnnouncementsAdapter mAnnouncementAdapter;
+    private List<Announcement> mAnnouncementList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,29 +42,15 @@ public class HomeFragment extends Fragment {
                 container, false);
         ButterKnife.bind(this, view);
 
-        announcementList = new ArrayList<>();
-        announcementAdapter = new AnnouncementsAdapter(view.getContext(), announcementList);
+        mAnnouncementList = new ArrayList<>();
+        mAnnouncementAdapter = new AnnouncementsAdapter(view.getContext(), mAnnouncementList);
 
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        announcementRecyclerView.setLayoutManager(mLayoutManager);
-        announcementRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        announcementRecyclerView.setAdapter(announcementAdapter);
+        mAnnouncementRecyclerView.setLayoutManager(mLayoutManager);
+        mAnnouncementRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mAnnouncementRecyclerView.setAdapter(mAnnouncementAdapter);
 
-        fabMenu.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Class fragmentClass;
-                fragmentClass = CoffeeMenuFragment.class;
-                Fragment fragment = null;
-                try {
-                    fragment = (android.support.v4.app.Fragment) fragmentClass.newInstance();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                FragmentHelper.doFragmentTransaction(fragment, (AppCompatActivity) getContext());
-            }
-        });
-
+        mFabMenu.setOnClickListener(ClickListeners.goToMenuListener(getContext()));
         mockAds();
         FragmentHelper.updateDrawerMenu(this.getActivity(), R.id.action_home);
         return view;
@@ -75,15 +61,15 @@ public class HomeFragment extends Fragment {
                 R.drawable.promotion3};
 
         Announcement announcement = new Announcement("globo.com", images[0]);
-        announcementList.add(announcement);
+        mAnnouncementList.add(announcement);
 
         announcement = new Announcement("uol.com", images[1]);
-        announcementList.add(announcement);
+        mAnnouncementList.add(announcement);
 
         announcement = new Announcement("google.com", images[2]);
-        announcementList.add(announcement);
+        mAnnouncementList.add(announcement);
 
-        announcementAdapter.notifyDataSetChanged();
+        mAnnouncementAdapter.notifyDataSetChanged();
     }
 }
 

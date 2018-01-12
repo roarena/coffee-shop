@@ -59,7 +59,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
         holder.mTvQuantity.setText(String.valueOf(coffee.getQuantity()));
     }
 
-
     @Override
     public int getItemCount() {
         return orderList.size();

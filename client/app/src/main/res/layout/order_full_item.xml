@@ -68,8 +68,10 @@
         android:elevation="3dp"
         android:text="Caffe Latte"
         android:textSize="24sp"
+        android:maxLines="2"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/iv_order_full_remove"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toStartOf="@+id/iv_delete_coffee"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -88,5 +90,16 @@
         app:layout_constraintEnd_toEndOf="@+id/tv_order_full_quantity"
         app:layout_constraintStart_toStartOf="@+id/tv_order_full_quantity"
         app:layout_constraintTop_toBottomOf="@+id/tv_order_full_quantity" />
+
+    <ImageView
+        android:id="@+id/iv_delete_coffee"
+        android:layout_width="wrap_content"
+        android:layout_height="36dp"
+        android:layout_marginEnd="8dp"
+        android:tint="@color/text_color_for_icons"
+        app:layout_constraintBottom_toBottomOf="@+id/iv_order_full_remove"
+        app:layout_constraintEnd_toStartOf="@+id/iv_order_full_remove"
+        app:layout_constraintTop_toTopOf="@+id/iv_order_full_remove"
+        app:srcCompat="@drawable/delete" />
 
 </android.support.constraint.ConstraintLayout>
