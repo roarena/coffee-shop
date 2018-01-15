@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 import butterknife.BindView;
@@ -66,8 +68,7 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.MyViewHold
         holder.mTvCoffeePrice.setText(coffee.printPrice());
         holder.mClItemMenu.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext));
         holder.mIvCoffeePicture.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext));
-        //TODO Get Image From FireBase
-        //Picasso.with(mContext).load(coffee.getImageURL()).into(holder.mIvCoffeePicture);
+        Picasso.with(mContext).load(coffee.getImageURL()).placeholder(R.drawable.profile).into(holder.mIvCoffeePicture);
     }
 
     @Override
