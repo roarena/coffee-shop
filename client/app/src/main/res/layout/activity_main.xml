@@ -44,4 +44,5 @@
         android:layout_gravity="start"
         android:background="@android:color/white"
         app:menu="@menu/bottom_navigation_menu" />
+
 </android.support.v4.widget.DrawerLayout>

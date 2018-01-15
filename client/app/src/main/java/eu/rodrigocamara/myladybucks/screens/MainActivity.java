@@ -5,10 +5,7 @@ import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -50,16 +47,16 @@ public class MainActivity extends AppCompatActivity {
     DrawerLayout mDrawer;
 
     @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    Toolbar mToolbar;
 
     @BindView(R.id.nvView)
-    NavigationView nvDrawer;
+    NavigationView mNvDrawer;
 
     CircleImageView mIvProfilePicture;
     TextView mTvProfileEmail;
     TextView mTvProfileName;
 
-    private ActionBarDrawerToggle drawerToggle;
+    private ActionBarDrawerToggle mDrawerToggle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Load Navigation Drawer.
         setupDrawerHeader();
-        setupDrawerContent(nvDrawer);
+        setupDrawerContent(mNvDrawer);
 
         // Calls for Firebase to initialize user and login if it's a first time user.
         initializeFirebase();
@@ -88,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         * https://github.com/JakeWharton/butterknife/issues/406
         * https://code.google.com/p/android/issues/detail?id=190226
         * */
-        View headerLayout = nvDrawer.inflateHeaderView(R.layout.drawer_header);
+        View headerLayout = mNvDrawer.inflateHeaderView(R.layout.drawer_header);
         mTvProfileName = ButterKnife.findById(headerLayout, R.id.tv_profile_name);
         mTvProfileEmail = ButterKnife.findById(headerLayout, R.id.tv_profile_phone);
         mIvProfilePicture = ButterKnife.findById(headerLayout, R.id.iv_profile_screen_picture);
@@ -140,11 +137,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private ActionBarDrawerToggle setupDrawerToggle() {
-        return new ActionBarDrawerToggle(this, mDrawer, toolbar, R.string.drawer_open, R.string.drawer_close);
+        return new ActionBarDrawerToggle(this, mDrawer, mToolbar, R.string.drawer_open, R.string.drawer_close);
     }
 
     private void setupDrawerContent(NavigationView navigationView) {
-        drawerToggle = setupDrawerToggle();
+        mDrawerToggle = setupDrawerToggle();
         navigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -157,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (drawerToggle.onOptionsItemSelected(item)) {
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -175,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         }
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction().replace(R.id.flContent, fragment).commit();
-        nvDrawer.getMenu().getItem(0).setChecked(true);
+        mNvDrawer.getMenu().getItem(0).setChecked(true);
     }
 
     private void initializeFirebase() {
@@ -242,12 +239,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-        drawerToggle.syncState();
+        mDrawerToggle.syncState();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        drawerToggle.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 }

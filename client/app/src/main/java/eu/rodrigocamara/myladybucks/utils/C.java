@@ -16,5 +16,7 @@ public class C {
     // Bundle Constants
     public static final String BUNDLE_COFFEE = "bundle_coffee";
     public static final String BUNDLE_ORDER = "bundle_order";
-    
+
+    //FireBase Constants
+    public static final String DB_MENU_REFERENCE = "menu";
 }

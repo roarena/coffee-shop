@@ -1,6 +1,9 @@
 package eu.rodrigocamara.myladybucks.screens.fragments;
 
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -9,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageSwitcher;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +58,7 @@ public class HomeFragment extends Fragment {
         mFabMenu.setOnClickListener(ClickListeners.goToMenuListener(getContext()));
         mockAds();
         FragmentHelper.updateDrawerMenu(this.getActivity(), R.id.action_home);
+
         return view;
     }
 
