@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import org.parceler.Parcels;
@@ -54,7 +55,7 @@ public class ClickListeners {
         };
     }
 
-    public static View.OnClickListener menuCoffeeListener(final Coffee coffee, final Context context) {
+    public static View.OnClickListener menuCoffeeListener(final Coffee coffee, final Context context, final ImageView coffeeImage) {
         return new View.OnClickListener() {
 
             @Override
@@ -64,7 +65,7 @@ public class ClickListeners {
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(C.BUNDLE_COFFEE, Parcels.wrap(coffee));
                 try {
-                    FragmentHelper.doFragmentTransaction(ItemOrderFragment.class.newInstance(), (AppCompatActivity) context, bundle);
+                    FragmentHelper.doFragmentTransaction(ItemOrderFragment.class.newInstance(), (AppCompatActivity) context, bundle, coffeeImage);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

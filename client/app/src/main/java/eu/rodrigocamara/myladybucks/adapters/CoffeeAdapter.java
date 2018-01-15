@@ -66,8 +66,8 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.MyViewHold
         holder.mTvCoffeeName.setText(coffee.getName());
         holder.mTvCoffeeDesc.setText(coffee.getDescription());
         holder.mTvCoffeePrice.setText(coffee.printPrice());
-        holder.mClItemMenu.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext));
-        holder.mIvCoffeePicture.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext));
+        holder.mClItemMenu.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext, holder.mIvCoffeePicture));
+        holder.mIvCoffeePicture.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext, holder.mIvCoffeePicture));
         Picasso.with(mContext).load(coffee.getImageURL()).placeholder(R.drawable.profile).into(holder.mIvCoffeePicture);
     }
 

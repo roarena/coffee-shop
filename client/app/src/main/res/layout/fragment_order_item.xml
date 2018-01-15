@@ -185,9 +185,10 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/iv_order_item_coffee_picture"
+            android:id="@+id/iv_item_coffee_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:transitionName="coffeePicture"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/profile" />
     </android.support.v7.widget.CardView>
