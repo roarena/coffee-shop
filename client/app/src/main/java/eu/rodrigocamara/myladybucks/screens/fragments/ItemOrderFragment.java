@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import org.parceler.Parcels;
 
 import butterknife.BindView;
@@ -43,6 +45,8 @@ public class ItemOrderFragment extends Fragment {
     ImageView mIvRemoveCoffee;
     @BindView(R.id.btn_order_item_add_cart)
     Button mBtnAddCart;
+    @BindView(R.id.iv_item_coffee_image)
+    ImageView mCoffeeImage;
 
     private Coffee mCoffee;
 
@@ -59,7 +63,7 @@ public class ItemOrderFragment extends Fragment {
         mTvCoffeeDesc.setText(mCoffee.getDescription());
         mTvTotalValue.setText(mCoffee.printPrice());
         mTvItemPrice.setText(mCoffee.printPrice());
-
+        Picasso.with(getContext()).load(mCoffee.getImageURL()).placeholder(R.drawable.profile).into(mCoffeeImage);
         mIvAddCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(mCoffee, mTvQuantity, mTvTotalValue, false));
         mIvRemoveCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(mCoffee, mTvQuantity, mTvTotalValue, true));
         mBtnAddCart.setOnClickListener(ClickListeners.addToCartListener(getContext(), mCoffee, mTvQuantity));

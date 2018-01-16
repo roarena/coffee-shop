@@ -2,6 +2,7 @@ package eu.rodrigocamara.myladybucks.adapters;
 
 import android.content.Context;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +69,7 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.MyViewHold
         holder.mTvCoffeePrice.setText(coffee.printPrice());
         holder.mClItemMenu.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext, holder.mIvCoffeePicture));
         holder.mIvCoffeePicture.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext, holder.mIvCoffeePicture));
+        ViewCompat.setTransitionName(holder.mIvCoffeePicture, String.valueOf(position) + "_image");
         Picasso.with(mContext).load(coffee.getImageURL()).placeholder(R.drawable.profile).into(holder.mIvCoffeePicture);
     }
 

@@ -69,7 +69,7 @@ public class FragmentHelper {
         boolean isFragmentOutOfStack = fragmentManager.popBackStackImmediate(backFragmentName, 0);
 
         if (!isFragmentOutOfStack) { //fragment not in back stack, create it.
-            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction = fragmentManager.beginTransaction().addSharedElement(sharedView, "coffeePicture");
             fragmentTransaction.replace(R.id.flContent, fragment);
             if (backFragmentName != HomeFragment.class.getName()) {
                 if (backFragmentName == OrderDetailFragment.class.getName()) {
@@ -81,7 +81,6 @@ public class FragmentHelper {
                 // If we are HOME the only way to go is OUT.
                 fragmentManager.popBackStack();
             }
-            fragmentTransaction.addSharedElement(sharedView, "coffeePicturea");
             fragmentTransaction.commit();
         }
     }
