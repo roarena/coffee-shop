@@ -19,4 +19,5 @@ public class C {
 
     //FireBase Constants
     public static final String DB_MENU_REFERENCE = "menu";
+    public static final String DB_ORDERS_REFERENCE = "orders";
 }

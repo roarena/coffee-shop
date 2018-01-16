@@ -55,7 +55,6 @@ public class FragmentHelper {
     }
 
     public static void doFragmentTransaction(Fragment fragment, AppCompatActivity activity, Bundle bundle, ImageView sharedView) {
-        Log.printLog("ASD");
         fragment.setSharedElementEnterTransition(new CoffeeItemTransition());
         fragment.setEnterTransition(new Slide());
         fragment.setExitTransition(new Slide());

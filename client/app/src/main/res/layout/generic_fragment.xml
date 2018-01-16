@@ -46,7 +46,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/coffee_animation"
                 android:elevation="3dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -77,7 +77,7 @@ public class FullOrderFragment extends Fragment implements QuantityHandler {
         tvTotalValue.setText(Currency.getInstance(Locale.getDefault()).getSymbol() + String.valueOf(Utils.getFinalOrderValue()));
 
         mBtnAddItems.setOnClickListener(ClickListeners.goToMenuListener(getContext()));
-        mBtnPlaceOrder.setOnClickListener(ClickListeners.goToOrderDetail(getContext(), OrderHelper.getInstance().getOrderList()));
+        mBtnPlaceOrder.setOnClickListener(ClickListeners.placeOrder(getContext(), OrderHelper.getInstance().getOrderList()));
     }
 
 

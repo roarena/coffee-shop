@@ -11,8 +11,12 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+
 import org.parceler.Parcels;
 
+import java.util.Calendar;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -20,11 +24,13 @@ import java.util.Locale;
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.OrderAdapter;
 import eu.rodrigocamara.myladybucks.pojos.Coffee;
+import eu.rodrigocamara.myladybucks.pojos.Order;
 import eu.rodrigocamara.myladybucks.screens.fragments.CoffeeMenuFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.FullOrderFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.ItemOrderFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.OrderDetailFragment;
 import eu.rodrigocamara.myladybucks.utils.C;
+import eu.rodrigocamara.myladybucks.utils.FirebaseHelper;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
 import eu.rodrigocamara.myladybucks.utils.Log;
 import eu.rodrigocamara.myladybucks.utils.OrderHelper;
@@ -60,8 +66,6 @@ public class ClickListeners {
 
             @Override
             public void onClick(View view) {
-                Log.printLog("Coffee clicked: " + coffee.getName());
-
                 Bundle bundle = new Bundle();
                 bundle.putParcelable(C.BUNDLE_COFFEE, Parcels.wrap(coffee));
                 try {
@@ -155,6 +159,22 @@ public class ClickListeners {
             public void onClick(View view) {
                 try {
                     FragmentHelper.doFragmentTransaction(CoffeeMenuFragment.class.newInstance(), (AppCompatActivity) context);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        };
+    }
+
+    public static View.OnClickListener placeOrder(final Context context, final List<Coffee> order) {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseHelper.getDatabase().getReference().child("orders").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(String.valueOf(Calendar.getInstance().getTimeInMillis())).setValue(new Order(order, Calendar.getInstance().getTime()));
+                try {
+                    Bundle bundle = new Bundle();
+                    bundle.putParcelable(C.BUNDLE_ORDER, Parcels.wrap(order));
+                    FragmentHelper.doFragmentTransaction(OrderDetailFragment.class.newInstance(), (AppCompatActivity) context, bundle);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

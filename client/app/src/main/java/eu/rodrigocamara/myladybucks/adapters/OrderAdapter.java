@@ -68,7 +68,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         Coffee coffee = orderList.get(position);
         holder.mTvCoffeeName.setText(coffee.getName());
         holder.mTvCoffeePrice.setText(Currency.getInstance(Locale.getDefault()).getSymbol() + (coffee.getPrice()) * coffee.getQuantity());
-        holder.mTvQuantity.setText(String.valueOf(coffee.getQuantity()));
+        holder.mTvQuantity.setText(String.format("%02d", coffee.getQuantity()));
         holder.mIvRemoveCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(coffee, holder.mTvQuantity, holder.mTvCoffeePrice, true, position));
         holder.mIvAddCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(coffee, holder.mTvQuantity, holder.mTvCoffeePrice, false, position));
         holder.mTvQuantity.addTextChangedListener(TextChangeListeners.coffeeQuantityListener(quantityHandler));

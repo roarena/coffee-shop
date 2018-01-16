@@ -2,31 +2,58 @@ package eu.rodrigocamara.myladybucks.pojos;
 
 import org.parceler.Parcel;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Created by Rodrigo Câmara on 04/01/2018.
  */
 @Parcel
 public class Order {
-    Coffee coffee;
-    int quantity;
+    private List<Coffee> mCoffeeList;
+    private String mStatus;
+    private String mUserID;
+    private Date mDate;
 
     public Order() {
 
     }
 
-    public Coffee getCoffee() {
-        return coffee;
+    public Order(List<Coffee> coffeeList, Date date) {
+        this.mCoffeeList = coffeeList;
+        this.mStatus = "new";
+        this.mDate = date;
     }
 
-    public void setCoffee(Coffee coffee) {
-        this.coffee = coffee;
+    public String getmUserID() {
+        return mUserID;
     }
 
-    public int getQuantity() {
-        return quantity;
+    public void setmUserID(String mUserID) {
+        this.mUserID = mUserID;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
+    public String getmStatus() {
+        return mStatus;
+    }
+
+    public void setmStatus(String mStatus) {
+        this.mStatus = mStatus;
+    }
+
+    public List<Coffee> getmCoffeeList() {
+        return mCoffeeList;
+    }
+
+    public void setmCoffeeList(List<Coffee> mCoffeeList) {
+        this.mCoffeeList = mCoffeeList;
+    }
+
+    public Date getDate() {
+        return mDate;
+    }
+
+    public void setDate(Date date) {
+        this.mDate = date;
     }
 }

@@ -116,7 +116,6 @@ public class CoffeeMenuFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                //TODO Treat error properly
                 databaseError.toException();
             }
         };

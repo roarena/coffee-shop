@@ -23,15 +23,18 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eu.rodrigocamara.myladybucks.R;
+import eu.rodrigocamara.myladybucks.adapters.UserOrdersAdapter;
 import eu.rodrigocamara.myladybucks.screens.fragments.CoffeeMenuFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.ProfileFragment;
+import eu.rodrigocamara.myladybucks.screens.fragments.UserOrdersFragment;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
 import eu.rodrigocamara.myladybucks.utils.Log;
@@ -63,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
+        Log.printLog(Calendar.getInstance().getTime().toString());
         if (savedInstanceState == null) {
             HomeFragment f1 = new HomeFragment();
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
@@ -105,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
                 goToFragment(CoffeeMenuFragment.class);
                 break;
             case R.id.action_purchases:
-                goToFragment(CoffeeMenuFragment.class);
+                goToFragment(UserOrdersFragment.class);
                 break;
             case R.id.action_git:
                 Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://github.com/roarena/mylady-bucks"));
