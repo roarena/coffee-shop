@@ -6,21 +6,21 @@ package eu.rodrigocamara.myladybucks.pojos;
 
 public class Announcement {
     private String url;
-    private int imageUrl;
+    private String imageUrl;
 
     public Announcement(){
 
     }
-    public Announcement(String url, int imageUrl) {
+    public Announcement(String url, String imageUrl) {
         this.url = url;
         this.imageUrl = imageUrl;
     }
 
-    public int getImageUrl() {
+    public String getImageUrl() {
         return imageUrl;
     }
 
-    public void setImageUrl(int imageUrl) {
+    public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
 

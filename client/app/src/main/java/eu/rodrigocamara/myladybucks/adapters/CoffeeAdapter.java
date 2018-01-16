@@ -70,7 +70,7 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.MyViewHold
         holder.mClItemMenu.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext, holder.mIvCoffeePicture));
         holder.mIvCoffeePicture.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext, holder.mIvCoffeePicture));
         ViewCompat.setTransitionName(holder.mIvCoffeePicture, String.valueOf(position) + "_image");
-        Picasso.with(mContext).load(coffee.getImageURL()).placeholder(R.drawable.profile).into(holder.mIvCoffeePicture);
+        Picasso.with(mContext).load(coffee.getImageURL()).placeholder(R.drawable.placeholder).into(holder.mIvCoffeePicture);
     }
 
     @Override

@@ -1,9 +1,6 @@
 package eu.rodrigocamara.myladybucks.screens.fragments;
 
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -12,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageSwitcher;
-import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -28,7 +23,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.AnnouncementsAdapter;
-import eu.rodrigocamara.myladybucks.adapters.OrderAdapter;
 import eu.rodrigocamara.myladybucks.adapters.UserOrdersAdapter;
 import eu.rodrigocamara.myladybucks.listeners.ClickListeners;
 import eu.rodrigocamara.myladybucks.pojos.Announcement;
@@ -66,36 +60,54 @@ public class HomeFragment extends Fragment {
                 container, false);
         ButterKnife.bind(this, view);
 
-        mAnnouncementList = new ArrayList<>();
-        mAnnouncementAdapter = new AnnouncementsAdapter(view.getContext(), mAnnouncementList);
-
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(view.getContext(), LinearLayoutManager.HORIZONTAL, false);
-        mAnnouncementRecyclerView.setLayoutManager(mLayoutManager);
-        mAnnouncementRecyclerView.setItemAnimator(new DefaultItemAnimator());
-        mAnnouncementRecyclerView.setAdapter(mAnnouncementAdapter);
-
         mFabMenu.setOnClickListener(ClickListeners.goToMenuListener(getContext()));
-        mockAds();
+
+        loadAnnouncements();
         loadOrders();
+
         FragmentHelper.updateDrawerMenu(this.getActivity(), R.id.action_home);
 
         return view;
     }
 
-    private void mockAds() {
-        int[] images = new int[]{R.drawable.promotion1, R.drawable.promotion2,
-                R.drawable.promotion3};
+    private void loadAnnouncements() {
+        mAnnouncementList = new ArrayList<>();
 
-        Announcement announcement = new Announcement("globo.com", images[0]);
-        mAnnouncementList.add(announcement);
+        mDatabaseReference = FirebaseHelper.getDatabase().getReference(C.DB_ANNOUNCES_REFERENCE);
+        mMenuEventListener = new ChildEventListener() {
 
-        announcement = new Announcement("uol.com", images[1]);
-        mAnnouncementList.add(announcement);
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                refreshAnnouncementsListValues(dataSnapshot.getValue(Announcement.class), false);
+            }
 
-        announcement = new Announcement("google.com", images[2]);
-        mAnnouncementList.add(announcement);
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                refreshAnnouncementsListValues(dataSnapshot.getValue(Announcement.class), true);
+            }
 
-        mAnnouncementAdapter.notifyDataSetChanged();
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+                refreshAnnouncementsListValues(dataSnapshot.getValue(Announcement.class), true);
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+                refreshAnnouncementsListValues(dataSnapshot.getValue(Announcement.class), true);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                databaseError.toException();
+            }
+        };
+        mDatabaseReference.addChildEventListener(mMenuEventListener);
+        mAnnouncementAdapter = new AnnouncementsAdapter(getContext(), mAnnouncementList);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
+        mAnnouncementRecyclerView.setLayoutManager(mLayoutManager);
+        mAnnouncementRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        mAnnouncementRecyclerView.setAdapter(mAnnouncementAdapter);
     }
 
     private void loadOrders() {
@@ -107,22 +119,22 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                refreshListValues(dataSnapshot.getValue(Order.class), false);
+                refreshCoffeeListValues(dataSnapshot.getValue(Order.class), false);
             }
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                refreshListValues(dataSnapshot.getValue(Order.class), true);
+                refreshCoffeeListValues(dataSnapshot.getValue(Order.class), true);
             }
 
             @Override
             public void onChildRemoved(DataSnapshot dataSnapshot) {
-                refreshListValues(dataSnapshot.getValue(Order.class), true);
+                refreshCoffeeListValues(dataSnapshot.getValue(Order.class), true);
             }
 
             @Override
             public void onChildMoved(DataSnapshot dataSnapshot, String s) {
-                refreshListValues(dataSnapshot.getValue(Order.class), true);
+                refreshCoffeeListValues(dataSnapshot.getValue(Order.class), true);
             }
 
             @Override
@@ -138,7 +150,15 @@ public class HomeFragment extends Fragment {
         mRvOrders.setAdapter(mOrderAdapter);
     }
 
-    private void refreshListValues(Order value, boolean needsClear) {
+    private void refreshAnnouncementsListValues(Announcement value, boolean needsClear) {
+        if (needsClear) {
+            mAnnouncementList.clear();
+        }
+        mAnnouncementList.add(value);
+        mAnnouncementAdapter.notifyDataSetChanged();
+    }
+
+    private void refreshCoffeeListValues(Order value, boolean needsClear) {
         if (needsClear) {
             mOrderList.clear();
         }
