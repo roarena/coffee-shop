@@ -26,8 +26,8 @@ import eu.rodrigocamara.myladybucks.utils.transitions.CoffeeItemTransition;
 
 public class FragmentHelper {
     public static void doFragmentTransaction(Fragment fragment, AppCompatActivity activity) {
-        fragment.setEnterTransition(new Slide());
-        fragment.setExitTransition(new Slide());
+        fragment.setEnterTransition(new Fade());
+        fragment.setExitTransition(new Fade());
 
 
         FragmentTransaction fragmentTransaction;
@@ -56,8 +56,8 @@ public class FragmentHelper {
 
     public static void doFragmentTransaction(Fragment fragment, AppCompatActivity activity, Bundle bundle, ImageView sharedView) {
         fragment.setSharedElementEnterTransition(new CoffeeItemTransition());
-        fragment.setEnterTransition(new Slide());
-        fragment.setExitTransition(new Slide());
+        fragment.setEnterTransition(new Fade());
+        fragment.setExitTransition(new Fade());
         fragment.setSharedElementReturnTransition(new CoffeeItemTransition());
 
         FragmentTransaction fragmentTransaction;
@@ -85,8 +85,8 @@ public class FragmentHelper {
     }
 
     public static void doFragmentTransaction(Fragment fragment, AppCompatActivity activity, Bundle bundle) {
-        fragment.setEnterTransition(new Slide());
-        fragment.setExitTransition(new Slide());
+        fragment.setEnterTransition(new Fade());
+        fragment.setExitTransition(new Fade());
 
         FragmentTransaction fragmentTransaction;
         FragmentManager fragmentManager = activity.getSupportFragmentManager();

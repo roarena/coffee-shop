@@ -40,7 +40,7 @@ public class TextChangeListeners {
         };
     }
 
-    public static TextWatcher coffeeQuantityListener(final QuantityHandler quantityHandler) {
+    public static TextWatcher coffeeQuantityListener(final QuantityHandler quantityHandler,final ImageView ivRemoveCoffee) {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -50,6 +50,13 @@ public class TextChangeListeners {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 quantityHandler.handleUiChanges();
+                if (Integer.valueOf(charSequence.toString()) > 1) {
+                    ivRemoveCoffee.setEnabled(true);
+                    ivRemoveCoffee.setColorFilter(null);
+                } else {
+                    ivRemoveCoffee.setEnabled(false);
+                    ivRemoveCoffee.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
+                }
             }
 
             @Override

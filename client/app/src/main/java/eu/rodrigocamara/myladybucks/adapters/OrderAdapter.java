@@ -1,6 +1,8 @@
 package eu.rodrigocamara.myladybucks.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -71,8 +73,11 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         holder.mTvQuantity.setText(String.format("%02d", coffee.getQuantity()));
         holder.mIvRemoveCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(coffee, holder.mTvQuantity, holder.mTvCoffeePrice, true, position));
         holder.mIvAddCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(coffee, holder.mTvQuantity, holder.mTvCoffeePrice, false, position));
-        holder.mTvQuantity.addTextChangedListener(TextChangeListeners.coffeeQuantityListener(quantityHandler));
+        holder.mTvQuantity.addTextChangedListener(TextChangeListeners.coffeeQuantityListener(quantityHandler, holder.mIvRemoveCoffee));
         holder.mIvDeleteCoffee.setOnClickListener(ClickListeners.deleteCoffee(mContext, position, this, quantityHandler));
+
+        holder.mIvRemoveCoffee.setEnabled(false);
+        holder.mIvRemoveCoffee.setColorFilter(Color.GRAY, PorterDuff.Mode.SRC_IN);
     }
 
     @Override
