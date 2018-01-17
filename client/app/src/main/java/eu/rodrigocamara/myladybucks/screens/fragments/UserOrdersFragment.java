@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
@@ -109,6 +110,7 @@ public class UserOrdersFragment extends Fragment {
         }
         mOrderList.add(value);
         mOrderAdapter.notifyDataSetChanged();
+        Collections.sort(mOrderList);
         AnimationHelper.stopAnimation(ivCoffeeAnimation);
     }
 }

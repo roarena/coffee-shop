@@ -37,6 +37,8 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.My
         TextView mTvDate;
         @BindView(R.id.tv_user_order_price)
         TextView mTvTotalPrice;
+        @BindView(R.id.tv_user_order_status)
+        TextView mTvOrderStatus;
 
         public MyViewHolder(View view) {
             super(view);
@@ -63,6 +65,8 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.My
         holder.mTvDate.setText(dateFormat.format(order.getDate()));
         holder.mTvCoffees.setText(getCoffees(order.getmCoffeeList()));
         holder.mTvTotalPrice.setText(Currency.getInstance(Locale.getDefault()).getSymbol() + String.valueOf(Utils.getFinalOrderValue(order.getmCoffeeList())));
+        holder.mTvOrderStatus.setText(order.getmStatus());
+        holder.mTvOrderStatus.setTextColor(setStatusColor(order.getmStatus()));
         holder.mTvCoffees.setOnClickListener(ClickListeners.goToOrderDetail(context, order.getmCoffeeList()));
     }
 
@@ -78,5 +82,20 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.My
             mTotalValue = mTotalValue + coffee.getPrice();
         }
         return order.toString();
+    }
+
+    private int setStatusColor(String statusColor) {
+        switch (statusColor) {
+            case "NEW":
+                return context.getResources().getColor(R.color.colorPrimary);
+            case "IN PROGRESS":
+                return context.getResources().getColor(R.color.status_progress);
+            case "READY":
+                return context.getResources().getColor(R.color.status_ready);
+            case "FINISHED":
+                return context.getResources().getColor(R.color.status_finished);
+            default:
+                return context.getResources().getColor(R.color.colorPrimary);
+        }
     }
 }

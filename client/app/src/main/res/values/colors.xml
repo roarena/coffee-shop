@@ -10,4 +10,7 @@
     <color name="colorBackground">#E0E0E0</color>
     <color name="menu_not_checked">#424242</color>
     <color name="text_color_for_icons">#757575</color>
+    <color name="status_progress">#78909C</color>
+    <color name="status_ready">#4CAF50</color>
+    <color name="status_finished">#424242</color>
 </resources>

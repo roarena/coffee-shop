@@ -27,6 +27,7 @@ import eu.rodrigocamara.myladybucks.pojos.Coffee;
 import eu.rodrigocamara.myladybucks.pojos.Order;
 import eu.rodrigocamara.myladybucks.screens.fragments.CoffeeMenuFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.FullOrderFragment;
+import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.ItemOrderFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.OrderDetailFragment;
 import eu.rodrigocamara.myladybucks.utils.C;
@@ -172,9 +173,8 @@ public class ClickListeners {
             public void onClick(View view) {
                 FirebaseHelper.getDatabase().getReference().child("orders").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(String.valueOf(Calendar.getInstance().getTimeInMillis())).setValue(new Order(order, Calendar.getInstance().getTime()));
                 try {
-                    Bundle bundle = new Bundle();
-                    bundle.putParcelable(C.BUNDLE_ORDER, Parcels.wrap(order));
-                    FragmentHelper.doFragmentTransaction(OrderDetailFragment.class.newInstance(), (AppCompatActivity) context, bundle);
+                    Snackbar.make(view, R.string.order_requested, Snackbar.LENGTH_SHORT).show();
+                    FragmentHelper.doFragmentTransaction(HomeFragment.class.newInstance(), (AppCompatActivity) context);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

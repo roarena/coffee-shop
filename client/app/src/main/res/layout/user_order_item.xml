@@ -6,6 +6,20 @@
     android:layout_height="wrap_content">
 
     <TextView
+        android:id="@+id/tv_user_order_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="4dp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:text="NEW"
+        android:textColor="@color/colorPrimary"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_order_price" />
+
+    <TextView
         android:id="@+id/tv_user_order_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,7 +29,7 @@
         android:maxLines="1"
         android:text="$15"
         android:textColor="@color/colorAccent"
-        android:textSize="32sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -32,7 +46,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_order_coffees" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_user_order_status" />
 
     <TextView
         android:id="@+id/tv_user_order_date"
@@ -44,7 +58,7 @@
         android:ellipsize="end"
         android:maxLines="1"
         android:text="Coffee(s)"
-        android:textSize="32sp"
+        android:textSize="24sp"
         app:layout_constraintEnd_toStartOf="@+id/tv_user_order_price"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -53,15 +67,17 @@
         android:id="@+id/tv_user_order_coffees"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
         android:ellipsize="end"
         android:maxLines="2"
         android:text="Coffee(s)"
         android:textSize="14sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tv_user_order_status"
+        app:layout_constraintEnd_toStartOf="@+id/tv_user_order_status"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_user_order_date" />
+        app:layout_constraintTop_toTopOf="@+id/tv_user_order_status" />
 
 </android.support.constraint.ConstraintLayout>
