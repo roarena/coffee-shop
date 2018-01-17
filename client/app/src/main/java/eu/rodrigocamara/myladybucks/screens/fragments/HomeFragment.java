@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
@@ -27,6 +28,7 @@ import eu.rodrigocamara.myladybucks.adapters.UserOrdersAdapter;
 import eu.rodrigocamara.myladybucks.listeners.ClickListeners;
 import eu.rodrigocamara.myladybucks.pojos.Announcement;
 import eu.rodrigocamara.myladybucks.pojos.Order;
+import eu.rodrigocamara.myladybucks.utils.AnimationHelper;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FirebaseHelper;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
@@ -40,7 +42,8 @@ public class HomeFragment extends Fragment {
     RecyclerView mAnnouncementRecyclerView;
     @BindView(R.id.rv_orders)
     RecyclerView mRvOrders;
-
+    @BindView(R.id.iv_generic_coffee_animation)
+    ImageView mCoffeeAnimation;
     @BindView(R.id.fab_home_menu)
     FloatingActionButton mFabMenu;
 
@@ -111,9 +114,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadOrders() {
-
         mOrderList = new ArrayList<>();
-
+        AnimationHelper.startAnimation(mCoffeeAnimation);
         mDatabaseReference = FirebaseHelper.getDatabase().getReference(C.DB_ORDERS_REFERENCE).child(FirebaseAuth.getInstance().getUid());
         mMenuEventListener = new ChildEventListener() {
 
@@ -148,6 +150,7 @@ public class HomeFragment extends Fragment {
         mRvOrders.setLayoutManager(mLayoutManager);
         mRvOrders.setItemAnimator(new DefaultItemAnimator());
         mRvOrders.setAdapter(mOrderAdapter);
+
     }
 
     private void refreshAnnouncementsListValues(Announcement value, boolean needsClear) {
@@ -164,6 +167,7 @@ public class HomeFragment extends Fragment {
         }
         mOrderList.add(value);
         mOrderAdapter.notifyDataSetChanged();
+        AnimationHelper.stopAnimation(mCoffeeAnimation);
     }
 }
 

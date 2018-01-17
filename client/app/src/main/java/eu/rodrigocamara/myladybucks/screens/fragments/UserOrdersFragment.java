@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -16,17 +17,13 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
-import org.parceler.Parcels;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.rodrigocamara.myladybucks.R;
-import eu.rodrigocamara.myladybucks.adapters.OrderDetailAdapter;
 import eu.rodrigocamara.myladybucks.adapters.UserOrdersAdapter;
-import eu.rodrigocamara.myladybucks.pojos.Coffee;
 import eu.rodrigocamara.myladybucks.pojos.Order;
 import eu.rodrigocamara.myladybucks.utils.AnimationHelper;
 import eu.rodrigocamara.myladybucks.utils.C;
@@ -43,6 +40,8 @@ public class UserOrdersFragment extends Fragment {
     TextView mTvTitle;
     List<Order> mOrderList;
     UserOrdersAdapter mOrderAdapter;
+    @BindView(R.id.iv_generic_coffee_animation)
+    ImageView ivCoffeeAnimation;
 
     private DatabaseReference mDatabaseReference;
     private ChildEventListener mMenuEventListener;
@@ -62,7 +61,7 @@ public class UserOrdersFragment extends Fragment {
     private void setUIComponents() {
         mTvTitle.setText("Orders");
         loadOrders();
-
+        AnimationHelper.startAnimation(ivCoffeeAnimation);
         mOrderAdapter = new UserOrdersAdapter(mOrderList, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvOrder.setLayoutManager(mLayoutManager);
@@ -110,5 +109,6 @@ public class UserOrdersFragment extends Fragment {
         }
         mOrderList.add(value);
         mOrderAdapter.notifyDataSetChanged();
+        AnimationHelper.stopAnimation(ivCoffeeAnimation);
     }
 }
