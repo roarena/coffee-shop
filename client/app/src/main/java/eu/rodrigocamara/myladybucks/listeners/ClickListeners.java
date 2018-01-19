@@ -16,8 +16,10 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
@@ -188,6 +190,7 @@ public class ClickListeners {
                                     @Override
                                     public void onSuccess(Object o) {
                                         loadingDialog.dismiss();
+                                        OrderHelper.getInstance().getOrderList().clear();
                                         try {
                                             Snackbar.make(view, R.string.order_requested, Snackbar.LENGTH_SHORT).show();
                                             FragmentHelper.doFragmentTransaction(HomeFragment.class.newInstance(), (AppCompatActivity) context);
@@ -196,13 +199,13 @@ public class ClickListeners {
                                         }
                                     }
                                 })
-                        .addOnFailureListener(
-                                new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Snackbar.make(view, R.string.snack_bar_item_error, Snackbar.LENGTH_SHORT).show();
-                                    }
-                                });
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                loadingDialog.dismiss();
+                                Snackbar.make(view, R.string.snack_bar_item_error, Snackbar.LENGTH_SHORT).show();
+                            }
+                        });
             }
         };
     }

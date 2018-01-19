@@ -2,6 +2,7 @@ package eu.rodrigocamara.myladybucks.utils;
 
 import android.content.Context;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Looper;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -48,6 +49,7 @@ public class LoadingHelper {
 
     public void startLoading() {
         startAnimation();
+
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
