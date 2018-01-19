@@ -1,16 +1,23 @@
 package eu.rodrigocamara.myladybucks.listeners;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.drawable.AnimationDrawable;
+import android.media.Image;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 
@@ -25,6 +32,7 @@ import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.OrderAdapter;
 import eu.rodrigocamara.myladybucks.pojos.Coffee;
 import eu.rodrigocamara.myladybucks.pojos.Order;
+import eu.rodrigocamara.myladybucks.screens.dialogs.LoadingDialog;
 import eu.rodrigocamara.myladybucks.screens.fragments.CoffeeMenuFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.FullOrderFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
@@ -170,14 +178,31 @@ public class ClickListeners {
     public static View.OnClickListener placeOrder(final Context context, final List<Coffee> order) {
         return new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                FirebaseHelper.getDatabase().getReference().child("orders").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(String.valueOf(Calendar.getInstance().getTimeInMillis())).setValue(new Order(order, Calendar.getInstance().getTime()));
-                try {
-                    Snackbar.make(view, R.string.order_requested, Snackbar.LENGTH_SHORT).show();
-                    FragmentHelper.doFragmentTransaction(HomeFragment.class.newInstance(), (AppCompatActivity) context);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+            public void onClick(final View view) {
+                final LoadingDialog loadingDialog = new LoadingDialog((AppCompatActivity) context);
+                loadingDialog.show();
+
+                FirebaseHelper.getDatabase().getReference().child("orders").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(String.valueOf(Calendar.getInstance().getTimeInMillis())).setValue(new Order(order, Calendar.getInstance().getTime()))
+                        .addOnSuccessListener(
+                                new OnSuccessListener() {
+                                    @Override
+                                    public void onSuccess(Object o) {
+                                        loadingDialog.dismiss();
+                                        try {
+                                            Snackbar.make(view, R.string.order_requested, Snackbar.LENGTH_SHORT).show();
+                                            FragmentHelper.doFragmentTransaction(HomeFragment.class.newInstance(), (AppCompatActivity) context);
+                                        } catch (Exception e) {
+                                            e.printStackTrace();
+                                        }
+                                    }
+                                })
+                        .addOnFailureListener(
+                                new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Snackbar.make(view, R.string.snack_bar_item_error, Snackbar.LENGTH_SHORT).show();
+                                    }
+                                });
             }
         };
     }

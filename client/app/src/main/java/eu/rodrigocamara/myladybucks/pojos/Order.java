@@ -62,8 +62,6 @@ public class Order implements Comparable {
     @Override
     public int compareTo(@NonNull Object o) {
         Date compareDate = ((Order) o).getDate();
-        /* For Ascending order*/
         return compareDate.compareTo(this.mDate);
-
     }
 }

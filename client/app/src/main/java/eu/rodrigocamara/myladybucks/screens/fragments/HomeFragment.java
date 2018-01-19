@@ -2,7 +2,6 @@ package eu.rodrigocamara.myladybucks.screens.fragments;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,11 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,11 +29,10 @@ import eu.rodrigocamara.myladybucks.adapters.UserOrdersAdapter;
 import eu.rodrigocamara.myladybucks.listeners.ClickListeners;
 import eu.rodrigocamara.myladybucks.pojos.Announcement;
 import eu.rodrigocamara.myladybucks.pojos.Order;
-import eu.rodrigocamara.myladybucks.utils.AnimationHelper;
+import eu.rodrigocamara.myladybucks.utils.LoadingHelper;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FirebaseHelper;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
-import eu.rodrigocamara.myladybucks.utils.OrderHelper;
 
 /**
  * Created by rodri on 30/12/2017.
@@ -61,6 +56,8 @@ public class HomeFragment extends Fragment {
 
     private DatabaseReference mDatabaseReference;
     private ChildEventListener mMenuEventListener;
+
+    private LoadingHelper mLoadingHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -121,7 +118,7 @@ public class HomeFragment extends Fragment {
 
     private void loadOrders() {
         mOrderList = new ArrayList<>();
-        AnimationHelper.startAnimation(mCoffeeAnimation);
+
         mDatabaseReference = FirebaseHelper.getDatabase().getReference(C.DB_ORDERS_REFERENCE).child(FirebaseAuth.getInstance().getUid());
         mMenuEventListener = new ChildEventListener() {
 
@@ -153,7 +150,9 @@ public class HomeFragment extends Fragment {
 
         };
         mDatabaseReference.addChildEventListener(mMenuEventListener);
-        beginTimeout();
+        mLoadingHelper = new LoadingHelper(mCoffeeAnimation, mMenuEventListener, mDatabaseReference, getContext());
+        mLoadingHelper.startLoading();
+
         mOrderAdapter = new UserOrdersAdapter(mOrderList, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         mRvOrders.setLayoutManager(mLayoutManager);
@@ -176,24 +175,7 @@ public class HomeFragment extends Fragment {
         mOrderList.add(value);
         mOrderAdapter.notifyDataSetChanged();
         Collections.sort(mOrderList);
-        AnimationHelper.stopAnimation(mCoffeeAnimation);
-    }
-
-    private void beginTimeout() {
-        final Timer timer = new Timer();
-        TimerTask timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                timer.cancel();
-                if (OrderHelper.getInstance().getOrderList().size() == 0) {
-                    mDatabaseReference.removeEventListener(mMenuEventListener);
-                    Snackbar.make(getView(), "Error on retrieving orders. Try again later.", Snackbar.LENGTH_SHORT).show();
-                    //TODO Remove Loading from Screen
-                }
-            }
-        };
-        // Setting timeout of 10 sec to the request
-        timer.schedule(timerTask, 15000L);
+        mLoadingHelper.stopLoading();
     }
 }
 

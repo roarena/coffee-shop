@@ -26,9 +26,9 @@ import butterknife.ButterKnife;
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.UserOrdersAdapter;
 import eu.rodrigocamara.myladybucks.pojos.Order;
-import eu.rodrigocamara.myladybucks.utils.AnimationHelper;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FirebaseHelper;
+import eu.rodrigocamara.myladybucks.utils.LoadingHelper;
 
 /**
  * Created by Rodrigo Câmara on 16/01/2018.
@@ -47,13 +47,14 @@ public class UserOrdersFragment extends Fragment {
     private DatabaseReference mDatabaseReference;
     private ChildEventListener mMenuEventListener;
 
+    private LoadingHelper mLoadingHelper;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.generic_fragment,
                 container, false);
         ButterKnife.bind(this, view);
-
 
         setUIComponents();
         return view;
@@ -62,7 +63,7 @@ public class UserOrdersFragment extends Fragment {
     private void setUIComponents() {
         mTvTitle.setText("Orders");
         loadOrders();
-        AnimationHelper.startAnimation(ivCoffeeAnimation);
+
         mOrderAdapter = new UserOrdersAdapter(mOrderList, getContext());
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rvOrder.setLayoutManager(mLayoutManager);
@@ -99,9 +100,12 @@ public class UserOrdersFragment extends Fragment {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 databaseError.toException();
+                mLoadingHelper.stopLoading();
             }
         };
         mDatabaseReference.addChildEventListener(mMenuEventListener);
+        mLoadingHelper = new LoadingHelper(ivCoffeeAnimation, mMenuEventListener, mDatabaseReference, getContext());
+        mLoadingHelper.startLoading();
     }
 
     private void refreshListValues(Order value, boolean needsClear) {
@@ -111,6 +115,6 @@ public class UserOrdersFragment extends Fragment {
         mOrderList.add(value);
         mOrderAdapter.notifyDataSetChanged();
         Collections.sort(mOrderList);
-        AnimationHelper.stopAnimation(ivCoffeeAnimation);
+        mLoadingHelper.stopLoading();
     }
 }

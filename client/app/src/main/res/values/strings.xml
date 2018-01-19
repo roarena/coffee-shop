@@ -14,8 +14,8 @@
     <string name="generic_add_more_items_button">Add more items</string>
     <string name="go_to_cart_button">Go to Cart</string>
     <string name="snack_bar_item_added">%1$d %2$s added to cart.</string>
-    <string name="order_requested">Your order was placed.\n Enjoy your coffee =)</string>
-    <string name="snack_bar_item_error"></string>
+    <string name="order_requested">Your order was placed. Enjoy your coffee =)</string>
+    <string name="snack_bar_item_error">Ops, we couldn\'t place your order, try again later.</string>
     <string name="order_full_title">Order</string>
     <string name="item_default_quantity">01</string>
     <string name="add_to_cart_button">Add to cart</string>

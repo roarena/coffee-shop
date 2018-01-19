@@ -31,6 +31,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.UserOrdersAdapter;
+import eu.rodrigocamara.myladybucks.screens.dialogs.LoadingDialog;
 import eu.rodrigocamara.myladybucks.screens.fragments.CoffeeMenuFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.ProfileFragment;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
         Log.printLog(Calendar.getInstance().getTime().toString());
         if (savedInstanceState == null) {
             HomeFragment f1 = new HomeFragment();

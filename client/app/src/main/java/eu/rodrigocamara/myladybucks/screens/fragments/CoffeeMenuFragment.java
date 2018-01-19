@@ -27,7 +27,7 @@ import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.CoffeeAdapter;
 import eu.rodrigocamara.myladybucks.listeners.ClickListeners;
 import eu.rodrigocamara.myladybucks.pojos.Coffee;
-import eu.rodrigocamara.myladybucks.utils.AnimationHelper;
+import eu.rodrigocamara.myladybucks.utils.LoadingHelper;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FirebaseHelper;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
@@ -52,6 +52,7 @@ public class CoffeeMenuFragment extends Fragment {
 
     private DatabaseReference mDatabaseReference;
     private ChildEventListener mMenuEventListener;
+    private LoadingHelper mLoadingHelper;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,7 +71,6 @@ public class CoffeeMenuFragment extends Fragment {
 
     private void setUIComponents(Context context) {
         tvTitle.setText(R.string.menu_title);
-        AnimationHelper.startAnimation(ivCoffeeAnimation);
         loadMenu();
 
 
@@ -120,6 +120,8 @@ public class CoffeeMenuFragment extends Fragment {
             }
         };
         mDatabaseReference.addChildEventListener(mMenuEventListener);
+        mLoadingHelper = new LoadingHelper(ivCoffeeAnimation, mMenuEventListener, mDatabaseReference, getContext());
+        mLoadingHelper.startLoading();
     }
 
     private void refreshListValues(Coffee value, boolean needsClear) {
@@ -128,6 +130,6 @@ public class CoffeeMenuFragment extends Fragment {
         }
         mCoffeeList.add(value);
         mCoffeeAdapter.notifyDataSetChanged();
-        AnimationHelper.stopAnimation(ivCoffeeAnimation);
+        mLoadingHelper.stopLoading();
     }
 }
