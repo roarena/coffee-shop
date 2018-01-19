@@ -1,5 +1,6 @@
 package eu.rodrigocamara.myladybucks.screens.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ import eu.rodrigocamara.myladybucks.utils.LoadingHelper;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FirebaseHelper;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
+import eu.rodrigocamara.myladybucks.utils.User;
 
 /**
  * Created by rodri on 30/12/2017.
@@ -68,12 +70,18 @@ public class HomeFragment extends Fragment {
 
         mFabMenu.setOnClickListener(ClickListeners.goToMenuListener(getContext()));
 
-        loadAnnouncements();
-        loadOrders();
-
         FragmentHelper.updateDrawerMenu(this.getActivity(), R.id.action_home);
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            loadAnnouncements();
+            loadOrders();
+        }
     }
 
     private void loadAnnouncements() {

@@ -50,7 +50,7 @@ public class LoadingHelper {
     public void startLoading() {
         startAnimation();
 
-        TimerTask timerTask = new TimerTask() {
+       /* TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
                 timer.cancel();
@@ -61,6 +61,6 @@ public class LoadingHelper {
                 }
             }
         };
-        timer.schedule(timerTask, 15000L);
+        timer.schedule(timerTask, 15000L);*/
     }
 }
