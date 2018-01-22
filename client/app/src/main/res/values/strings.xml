@@ -22,4 +22,5 @@
     <string name="comments_hint">Comments</string>
     <string name="dialog_title">Hey</string>
     <string name="dialog_text">Do you really want to remove this coffee?</string>
+    <string name="order_title">Order</string>
 </resources>

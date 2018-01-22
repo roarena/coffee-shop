@@ -74,7 +74,7 @@ public class OrderDetailFragment extends Fragment {
         mTvTotalLabel.setVisibility(View.VISIBLE);
         mTvTitle.setVisibility(View.VISIBLE);
         mDivider.setVisibility(View.VISIBLE);
-        mTvTitle.setText("Order #666");
+        mTvTitle.setText(R.string.order_title);
         mTvTotalValue.setText(Currency.getInstance(Locale.getDefault()).getSymbol() + Utils.getFinalOrderValue(mOrderList));
     }
 }
