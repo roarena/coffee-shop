@@ -1,5 +1,6 @@
 package eu.rodrigocamara.myladybucks.adapters;
 
+import android.app.Activity;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -29,6 +30,8 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.My
     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private Context context;
     private int mTotalValue;
+    private int widgetId = 0;
+    private Activity widgetConfigureActivity;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_user_order_coffees)
@@ -52,6 +55,13 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.My
         this.orderList = orderList;
     }
 
+    public UserOrdersAdapter(List<Order> orderList, Context context, int widgetId, Activity widgetConfigureActivity) {
+        this.context = context;
+        this.orderList = orderList;
+        this.widgetId = widgetId;
+        this.widgetConfigureActivity = widgetConfigureActivity;
+    }
+
     @Override
     public UserOrdersAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
@@ -67,7 +77,12 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.My
         holder.mTvTotalPrice.setText(Currency.getInstance(Locale.getDefault()).getSymbol() + String.valueOf(Utils.getFinalOrderValue(order.getmCoffeeList())));
         holder.mTvOrderStatus.setText(order.getmStatus());
         holder.mTvOrderStatus.setTextColor(setStatusColor(order.getmStatus()));
-        holder.mTvCoffees.setOnClickListener(ClickListeners.goToOrderDetail(context, order.getmCoffeeList()));
+        if (widgetId == 0) {
+            holder.itemView.setOnClickListener(ClickListeners.goToOrderDetail(context, order.getmCoffeeList()));
+        } else {
+            holder.itemView.setOnClickListener(ClickListeners.setAsFavoriteCoffee(context, order.getmCoffeeList(), widgetId, widgetConfigureActivity));
+        }
+
     }
 
     @Override

@@ -16,11 +16,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.common.Scopes;
 import com.google.firebase.auth.FirebaseAuth;
 import com.squareup.picasso.Picasso;
+
+import org.parceler.Parcels;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -31,22 +34,23 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.UserOrdersAdapter;
+import eu.rodrigocamara.myladybucks.pojos.Coffee;
 import eu.rodrigocamara.myladybucks.screens.dialogs.LoadingDialog;
 import eu.rodrigocamara.myladybucks.screens.fragments.CoffeeMenuFragment;
+import eu.rodrigocamara.myladybucks.screens.fragments.FullOrderFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.ProfileFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.UserOrdersFragment;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
 import eu.rodrigocamara.myladybucks.utils.Log;
+import eu.rodrigocamara.myladybucks.utils.OrderHelper;
 import eu.rodrigocamara.myladybucks.utils.User;
 
 public class MainActivity extends AppCompatActivity {
-    // Firebase declaration
     private FirebaseAuth mFirebaseAuth;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    // UI components declaration
     @BindView(R.id.drawer_layout)
     DrawerLayout mDrawer;
 
@@ -83,6 +87,19 @@ public class MainActivity extends AppCompatActivity {
         // Calls for Firebase to initialize user and login if it's a first time user.
         initializeFirebase();
 
+        // If has extras from widget, take user to cart with favorite coffee configured by widget cfg.
+        Intent intent = getIntent();
+        if (intent.hasExtra(C.WIDGET_EXTRA)) {
+            List<Coffee> mOrderList = Parcels.unwrap(intent.getBundleExtra(C.WIDGET_EXTRA).getParcelable(C.BUNDLE_ORDER));
+            OrderHelper.getInstance().setOrderList(mOrderList);
+            try {
+                FragmentHelper.doFragmentTransaction(FullOrderFragment.class.newInstance(), this);
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private void setupDrawerHeader() {
@@ -166,7 +183,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void goHome() {
-        //TODO THIS NEEDS REFACTORING AFTER FRAGMENTS RE-WORK
         Fragment fragment = null;
         Class fragmentClass;
         fragmentClass = HomeFragment.class;

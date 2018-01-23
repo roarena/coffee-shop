@@ -23,4 +23,10 @@
     <string name="dialog_title">Hey</string>
     <string name="dialog_text">Do you really want to remove this coffee?</string>
     <string name="order_title">Order</string>
+    <string name="favorite_order_title">Select your favorite</string>
+    <string name="favorite_order_login_error">Please login before adding widget.</string>
+    <string name="favorite_order_error">Please make sure to have an order to place widget.</string>
+    <string name="appwidget_text">Give me Coffee!</string>
+    <string name="configure">Configure</string>
+    <string name="add_widget">Add widget</string>
 </resources>

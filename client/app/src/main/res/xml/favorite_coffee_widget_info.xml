@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<appwidget-provider xmlns:android="http://schemas.android.com/apk/res/android"
+    android:configure="eu.rodrigocamara.myladybucks.screens.widgets.FavoriteCoffeeWidgetConfigureActivity"
+    android:initialKeyguardLayout="@layout/favorite_coffee_widget"
+    android:initialLayout="@layout/favorite_coffee_widget"
+    android:minHeight="40dp"
+    android:minWidth="120dp"
+    android:previewImage="@drawable/widget_preview"
+    android:updatePeriodMillis="86400000"
+    android:widgetCategory="home_screen"></appwidget-provider>

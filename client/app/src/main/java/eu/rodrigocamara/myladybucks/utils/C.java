@@ -21,4 +21,8 @@ public class C {
     public static final String DB_MENU_REFERENCE = "menu";
     public static final String DB_ORDERS_REFERENCE = "orders";
     public static final String DB_ANNOUNCES_REFERENCE = "announcement";
+
+    public static String WIDGET_CLICK = "widget_click";
+    public static String WIDGET_PREFIX = "Widget_";
+    public static String WIDGET_EXTRA = "fromWidget";
 }
