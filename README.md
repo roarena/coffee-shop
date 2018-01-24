@@ -1,7 +1,7 @@
 # MyLady Bucks  
 
 *This project is part of the Udacity Android Developer NanoDegree  
-Documentation are located in the [**docs**](https://github.com/roarena/mylady-bucks/tree/master/docs) folder.  
+Documentation is located in the [**docs**](https://github.com/roarena/mylady-bucks/tree/master/docs) folder.  
 Client App, MyLady Bucks is located at [**client**](https://github.com/roarena/mylady-bucks/tree/master/client) folder.  
 Server App, is located at [**server**](https://github.com/roarena/mylady-bucks/tree/master/server) folder*  
 
