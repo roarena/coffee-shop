@@ -22,6 +22,7 @@
         <receiver android:name=".screens.widgets.FavoriteCoffeeWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="eu.rodrigocamara.myladybucks.screens.widgets.FavoriteCoffeeWidget.WIDGET_CLICK" />
             </intent-filter>
 
             <meta-data

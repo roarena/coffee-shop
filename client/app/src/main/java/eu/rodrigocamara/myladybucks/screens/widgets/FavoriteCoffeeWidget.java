@@ -24,18 +24,14 @@ import eu.rodrigocamara.myladybucks.utils.SharedPreferenceHelper;
 public class FavoriteCoffeeWidget extends AppWidgetProvider {
     private static int widgetId;
     private static List<Coffee> coffeeList;
+    public static final String WIDGET_CLICK = "widget_click";
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
-
-        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.favorite_coffee_widget);
+    void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                         int appWidgetId) {
         widgetId = appWidgetId;
 
-        Intent intent = new Intent(context, FavoriteCoffeeWidget.class);
-        intent.setAction(C.WIDGET_CLICK);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0);
-        views.setOnClickPendingIntent(R.id.appwidget_text, pendingIntent);
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.favorite_coffee_widget);
+        views.setOnClickPendingIntent(R.id.btn_order, getPendingSelfIntent(context,WIDGET_CLICK));
 
         Gson gson = new Gson();
         SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
@@ -53,10 +49,16 @@ public class FavoriteCoffeeWidget extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
+    public PendingIntent getPendingSelfIntent(Context context, String action) {
+        Intent intent = new Intent(context, getClass());
+        intent.setAction(action);
+        return PendingIntent.getBroadcast(context, 0, intent, 0);
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
-        if (intent.getAction().equals(C.WIDGET_CLICK)) {
+        if (intent.getAction().equals(WIDGET_CLICK)) {
             Bundle bundle = new Bundle();
             bundle.putParcelable(C.BUNDLE_ORDER, Parcels.wrap(coffeeList));
 
