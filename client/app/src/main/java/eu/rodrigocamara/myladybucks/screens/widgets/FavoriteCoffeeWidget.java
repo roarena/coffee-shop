@@ -13,20 +13,14 @@ import com.google.gson.reflect.TypeToken;
 
 import org.parceler.Parcels;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.pojos.Coffee;
 import eu.rodrigocamara.myladybucks.screens.MainActivity;
 import eu.rodrigocamara.myladybucks.utils.C;
-import eu.rodrigocamara.myladybucks.utils.Log;
 import eu.rodrigocamara.myladybucks.utils.SharedPreferenceHelper;
 
-/**
- * Implementation of App Widget functionality.
- * App Widget Configuration implemented in {@link FavoriteCoffeeWidgetConfigureActivity FavoriteCoffeeWidgetConfigureActivity}
- */
 public class FavoriteCoffeeWidget extends AppWidgetProvider {
     private static int widgetId;
     private static List<Coffee> coffeeList;
@@ -49,10 +43,10 @@ public class FavoriteCoffeeWidget extends AppWidgetProvider {
         coffeeList = gson.fromJson(sharedPreferenceHelper.getString(C.WIDGET_PREFIX + widgetId), new TypeToken<List<Coffee>>() {
         }.getType());
 
-        if (coffeeList!=null && !coffeeList.isEmpty()) {
+        if (coffeeList != null && !coffeeList.isEmpty()) {
             StringBuilder stringBuilder = new StringBuilder();
             for (Coffee coffee : coffeeList) {
-                stringBuilder.append(coffee.getQuantity() + "x " + coffee.getName() + "\n");
+                stringBuilder.append(coffee.getQuantity() + C.QTY_SYMBOL + coffee.getName() + "\n");
             }
             views.setTextViewText(R.id.appwidget_text, stringBuilder.toString());
         }

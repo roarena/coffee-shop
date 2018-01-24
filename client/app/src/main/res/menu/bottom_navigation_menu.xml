@@ -34,11 +34,6 @@
             <menu>
                 <group android:checkableBehavior="single">
                     <item
-                        android:id="@+id/action_credits"
-                        android:enabled="true"
-                        android:icon="@drawable/information_outline"
-                        android:title="Credits" />
-                    <item
                         android:id="@+id/action_git"
                         android:enabled="true"
                         android:icon="@drawable/github_circle"

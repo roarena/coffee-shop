@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.rodrigocamara.myladybucks.pojos.Coffee;
-import eu.rodrigocamara.myladybucks.pojos.Order;
 
 /**
  * Created by Rodrigo Câmara on 04/01/2018.

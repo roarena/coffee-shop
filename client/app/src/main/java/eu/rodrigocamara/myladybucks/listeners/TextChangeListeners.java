@@ -4,7 +4,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.ImageView;
 
 import eu.rodrigocamara.myladybucks.interfaces.QuantityHandler;
@@ -40,7 +39,7 @@ public class TextChangeListeners {
         };
     }
 
-    public static TextWatcher coffeeQuantityListener(final QuantityHandler quantityHandler,final ImageView ivRemoveCoffee) {
+    public static TextWatcher coffeeQuantityListener(final QuantityHandler quantityHandler, final ImageView ivRemoveCoffee) {
         return new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

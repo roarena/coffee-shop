@@ -22,7 +22,19 @@ public class C {
     public static final String DB_ORDERS_REFERENCE = "orders";
     public static final String DB_ANNOUNCES_REFERENCE = "announcement";
 
-    public static String WIDGET_CLICK = "widget_click";
-    public static String WIDGET_PREFIX = "Widget_";
-    public static String WIDGET_EXTRA = "fromWidget";
+    public static final String WIDGET_CLICK = "widget_click";
+    public static final String WIDGET_PREFIX = "Widget_";
+    public static final String WIDGET_EXTRA = "fromWidget";
+
+    public static final String TRANSITION_POSFIX = "_image";
+    public static final String FORMAT_DIGITS = "%02d";
+
+    public static final String STATUS_NEW = "NEW";
+    public static final String STATUS_IN_PROGRESS = "IN PROGRESS";
+    public static final String STATUS_READY = "READY";
+    public static final String STATUS_FINISHED = "FINISHED";
+
+    public static final String QTY_SYMBOL = "x ";
+
+
 }

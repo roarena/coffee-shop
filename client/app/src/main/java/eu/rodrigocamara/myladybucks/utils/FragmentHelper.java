@@ -3,21 +3,18 @@ package eu.rodrigocamara.myladybucks.utils;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.transition.Explode;
 import android.support.transition.Fade;
-import android.support.transition.Slide;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 
 import eu.rodrigocamara.myladybucks.R;
-import eu.rodrigocamara.myladybucks.screens.fragments.OrderDetailFragment;
 import eu.rodrigocamara.myladybucks.screens.fragments.HomeFragment;
+import eu.rodrigocamara.myladybucks.screens.fragments.OrderDetailFragment;
 import eu.rodrigocamara.myladybucks.utils.transitions.CoffeeItemTransition;
 
 /**

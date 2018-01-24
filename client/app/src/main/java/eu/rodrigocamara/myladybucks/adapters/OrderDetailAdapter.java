@@ -21,8 +21,7 @@ import eu.rodrigocamara.myladybucks.pojos.Coffee;
  */
 
 public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.MyViewHolder> {
-    Context mContext;
-    List<Coffee> orderList;
+    private List<Coffee> orderList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         @BindView(R.id.tv_order_detail_coffee_name)
@@ -40,7 +39,6 @@ public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.
     }
 
     public OrderDetailAdapter(Context mContext, List<Coffee> orderList) {
-        this.mContext = mContext;
         this.orderList = orderList;
     }
 

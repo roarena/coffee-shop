@@ -2,15 +2,11 @@ package eu.rodrigocamara.myladybucks.screens.widgets;
 
 import android.app.Activity;
 import android.appwidget.AppWidgetManager;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,9 +31,6 @@ import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FirebaseHelper;
 import eu.rodrigocamara.myladybucks.utils.LoadingHelper;
 
-/**
- * The configuration screen for the {@link FavoriteCoffeeWidget FavoriteCoffeeWidget} AppWidget.
- */
 public class FavoriteCoffeeWidgetConfigureActivity extends Activity {
 
     int mAppWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
@@ -60,15 +53,13 @@ public class FavoriteCoffeeWidgetConfigureActivity extends Activity {
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
 
-        // Set the result to CANCELED.  This will cause the widget host to cancel
-        // out of the widget placement if the user presses the back button.
         setResult(RESULT_CANCELED);
         setContentView(R.layout.generic_fragment);
 
         ButterKnife.bind(this);
 
         mTvTitle.setText(R.string.favorite_order_title);
-        // Find the widget id from the intent.
+
         Intent intent = getIntent();
         Bundle extras = intent.getExtras();
         if (extras != null) {

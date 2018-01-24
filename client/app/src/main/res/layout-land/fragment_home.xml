@@ -1,48 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="0dp"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Rewards"
-        android:gravity="center"
-        android:textSize="25sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/rv_ads" />
+        android:background="@color/colorBackground">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_ads"
-        android:layout_width="368dp"
-        android:layout_height="0dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        <android.support.v7.widget.CardView
+            android:id="@+id/cardView7"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin_inner_layout"
+            android:layout_marginEnd="@dimen/default_margin_inner_layout"
+            android:layout_marginStart="@dimen/default_margin_inner_layout"
+            android:layout_marginTop="@dimen/default_margin_inner_layout"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:text="Announcements"
-        android:textSize="25sp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+            <ImageView
+                android:id="@+id/iv_generic_coffee_animation"
+                android:layout_width="@dimen/loading_coffee_size"
+                android:layout_height="@dimen/loading_coffee_size"
+                android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/default_margin_inner_layout"
+                android:layout_marginEnd="@dimen/default_margin_inner_layout"
+                android:layout_marginStart="@dimen/default_margin_inner_layout"
+                android:layout_marginTop="@dimen/default_margin_inner_layout"
+                android:background="@drawable/coffee_animation"
+                android:contentDescription="@string/contentdesc_loading_animation"
+                android:elevation="3dp"
+                android:visibility="gone" />
 
-</android.support.constraint.ConstraintLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_orders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/default_margin_inner_layout"
+                android:layout_marginEnd="@dimen/default_margin_inner_layout"
+                android:layout_marginStart="@dimen/default_margin_inner_layout"
+                android:layout_marginTop="@dimen/default_margin_inner_layout"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+            </android.support.v7.widget.RecyclerView>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_ads"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/announcement_height"
+            android:layout_marginEnd="@dimen/default_margin_inner_layout"
+            android:layout_marginStart="@dimen/default_margin_inner_layout"
+            android:layout_marginTop="@dimen/default_margin_inner_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/default_margin_inner_layout"
+            android:layout_marginStart="@dimen/default_margin_inner_layout"
+            android:textSize="@dimen/coffee_name"
+            android:text="@string/orders_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rv_ads" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="0dp"
+            android:text="@string/announ_title"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/default_margin_inner_layout"
+            android:layout_marginEnd="@dimen/default_margin_inner_layout"
+            android:layout_marginStart="@dimen/default_margin_inner_layout"
+            android:layout_marginTop="@dimen/default_margin_layout"
+            android:textSize="@dimen/coffee_name"
+            app:layout_constraintBottom_toTopOf="@+id/rv_ads"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
+</ScrollView>

@@ -1,15 +1,11 @@
 package eu.rodrigocamara.myladybucks.screens.fragments;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,14 +13,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.PhoneAuthCredential;
 import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 import eu.rodrigocamara.myladybucks.R;
-import eu.rodrigocamara.myladybucks.screens.MainActivity;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.SharedPreferenceHelper;
 import eu.rodrigocamara.myladybucks.utils.User;
@@ -43,8 +37,6 @@ public class ProfileFragment extends Fragment {
     EditText mTxtProfilePhone;
     @BindView(R.id.btn_profile_signout)
     Button mBtnProfileSignout;
-    @BindView(R.id.btn_profile_clear_favorites)
-    Button mBtnProfileClear;
     @BindView(R.id.btn_profile_save)
     Button mBtnProfileSave;
     @BindView(R.id.iv_profile_screen_picture)

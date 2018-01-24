@@ -1,7 +1,7 @@
 package eu.rodrigocamara.myladybucks.screens.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -30,11 +30,10 @@ import eu.rodrigocamara.myladybucks.adapters.UserOrdersAdapter;
 import eu.rodrigocamara.myladybucks.listeners.ClickListeners;
 import eu.rodrigocamara.myladybucks.pojos.Announcement;
 import eu.rodrigocamara.myladybucks.pojos.Order;
-import eu.rodrigocamara.myladybucks.utils.LoadingHelper;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FirebaseHelper;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
-import eu.rodrigocamara.myladybucks.utils.User;
+import eu.rodrigocamara.myladybucks.utils.LoadingHelper;
 
 /**
  * Created by rodri on 30/12/2017.
@@ -47,7 +46,7 @@ public class HomeFragment extends Fragment {
     RecyclerView mRvOrders;
     @BindView(R.id.iv_generic_coffee_animation)
     ImageView mCoffeeAnimation;
-    @BindView(R.id.fab_home_menu)
+    @Nullable @BindView(R.id.fab_home_menu)
     FloatingActionButton mFabMenu;
 
     private UserOrdersAdapter mOrderAdapter;
@@ -68,7 +67,9 @@ public class HomeFragment extends Fragment {
                 container, false);
         ButterKnife.bind(this, view);
 
-        mFabMenu.setOnClickListener(ClickListeners.goToMenuListener(getContext()));
+        if(mFabMenu!=null){
+            mFabMenu.setOnClickListener(ClickListeners.goToMenuListener(getContext()));
+        }
 
         FragmentHelper.updateDrawerMenu(this.getActivity(), R.id.action_home);
 

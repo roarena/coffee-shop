@@ -61,7 +61,7 @@ public class UserOrdersFragment extends Fragment {
     }
 
     private void setUIComponents() {
-        mTvTitle.setText("Orders");
+        mTvTitle.setText(R.string.orders_title);
         loadOrders();
 
         mOrderAdapter = new UserOrdersAdapter(mOrderList, getContext());

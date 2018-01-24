@@ -1,13 +1,10 @@
 package eu.rodrigocamara.myladybucks.listeners;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.drawable.AnimationDrawable;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -15,18 +12,14 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.gson.Gson;
 
 import org.parceler.Parcels;
@@ -38,6 +31,7 @@ import java.util.Locale;
 
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.adapters.OrderAdapter;
+import eu.rodrigocamara.myladybucks.interfaces.QuantityHandler;
 import eu.rodrigocamara.myladybucks.pojos.Coffee;
 import eu.rodrigocamara.myladybucks.pojos.Order;
 import eu.rodrigocamara.myladybucks.screens.dialogs.LoadingDialog;
@@ -49,9 +43,7 @@ import eu.rodrigocamara.myladybucks.screens.fragments.OrderDetailFragment;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FirebaseHelper;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
-import eu.rodrigocamara.myladybucks.utils.Log;
 import eu.rodrigocamara.myladybucks.utils.OrderHelper;
-import eu.rodrigocamara.myladybucks.interfaces.QuantityHandler;
 import eu.rodrigocamara.myladybucks.utils.SharedPreferenceHelper;
 
 import static android.app.Activity.RESULT_OK;
@@ -108,7 +100,7 @@ public class ClickListeners {
                     quantity = Integer.valueOf(tvQuantity.getText().toString()) + 1;
                 }
 
-                tvQuantity.setText(String.format("%02d", quantity).toString());
+                tvQuantity.setText(String.format(C.FORMAT_DIGITS, quantity).toString());
                 tvTotalValue.setText(Currency.getInstance(Locale.getDefault()).getSymbol() + String.valueOf(coffee.getPrice() * quantity));
             }
         };
@@ -126,7 +118,7 @@ public class ClickListeners {
                 }
                 OrderHelper.getInstance().getOrderList().get(position).setQuantity(quantity);
 
-                tvQuantity.setText(String.format("%02d", quantity).toString());
+                tvQuantity.setText(String.format(C.FORMAT_DIGITS, quantity).toString());
                 tvTotalValue.setText(Currency.getInstance(Locale.getDefault()).getSymbol() + String.valueOf(coffee.getPrice() * quantity));
 
             }
@@ -193,7 +185,7 @@ public class ClickListeners {
                 final LoadingDialog loadingDialog = new LoadingDialog((AppCompatActivity) context);
                 loadingDialog.show();
 
-                FirebaseHelper.getDatabase().getReference().child("orders").child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(String.valueOf(Calendar.getInstance().getTimeInMillis())).setValue(new Order(order, Calendar.getInstance().getTime()))
+                FirebaseHelper.getDatabase().getReference().child(C.DB_ORDERS_REFERENCE).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(String.valueOf(Calendar.getInstance().getTimeInMillis())).setValue(new Order(order, Calendar.getInstance().getTime()))
                         .addOnSuccessListener(
                                 new OnSuccessListener() {
                                     @Override
@@ -244,7 +236,7 @@ public class ClickListeners {
                     SharedPreferenceHelper sharedPreferenceHelper = new SharedPreferenceHelper(context);
                     sharedPreferenceHelper.putString(C.WIDGET_PREFIX + widgetId, json);
 
-                    Toast.makeText(context, "This order was added as favorite for this widget", Toast.LENGTH_LONG).show();
+                    Toast.makeText(context, R.string.favorite_widget, Toast.LENGTH_LONG).show();
 
                     Intent resultValue = new Intent();
                     resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, widgetId);
@@ -253,7 +245,7 @@ public class ClickListeners {
                     RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.favorite_coffee_widget);
                     StringBuilder stringBuilder = new StringBuilder();
                     for (Coffee coffee : order) {
-                        stringBuilder.append(coffee.getQuantity() + "x " + coffee.getName() + "\n");
+                        stringBuilder.append(coffee.getQuantity() + C.QTY_SYMBOL + coffee.getName() + "\n");
                     }
                     views.setTextViewText(R.id.appwidget_text, stringBuilder.toString());
                     AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);

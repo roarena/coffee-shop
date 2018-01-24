@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/default_margin_inner_layout"
                 android:elevation="3dp"
-                android:text="Total:"
+                android:text="@string/label_total"
                 android:textSize="@dimen/default_subtitle_text_size"
                 android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/tv_order_item_total_value"
@@ -93,7 +93,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/default_margin_inner_layout"
                 android:elevation="3dp"
-                android:text="Unitary value:"
+                android:text="@string/label_unitary"
                 android:textSize="@dimen/default_subtitle_text_size"
                 android:textStyle="bold"
                 app:layout_constraintBaseline_toBaselineOf="@+id/tv_order_item_quantity"
@@ -136,6 +136,8 @@
                 android:layout_marginEnd="@dimen/default_margin_inner_layout"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:contentDescription="@string/contentdesc_less_coffee"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="@+id/iv_order_item_add"
                 app:layout_constraintEnd_toStartOf="@+id/tv_order_item_quantity"
                 app:layout_constraintTop_toTopOf="@+id/iv_order_item_add"
@@ -149,6 +151,8 @@
                 android:layout_marginTop="@dimen/default_margin_inner_layout"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:clickable="true"
+                android:contentDescription="@string/contentdesc_more_coffee"
+                android:focusable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_order_item_coffee_description"
                 app:srcCompat="@drawable/up_button" />
@@ -188,8 +192,9 @@
             android:id="@+id/iv_item_coffee_image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:transitionName="coffeePicture"
+            android:contentDescription="@string/contentdesc_coffee_image"
             android:scaleType="centerCrop"
+            android:transitionName="coffeePicture"
             app:srcCompat="@drawable/profile" />
     </android.support.v7.widget.CardView>
 

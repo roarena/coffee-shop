@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.listeners.ClickListeners;
 import eu.rodrigocamara.myladybucks.pojos.Coffee;
+import eu.rodrigocamara.myladybucks.utils.C;
 
 /**
  * Created by Rodrigo Câmara on 04/01/2018.
@@ -67,9 +68,8 @@ public class CoffeeAdapter extends RecyclerView.Adapter<CoffeeAdapter.MyViewHold
         holder.mTvCoffeeName.setText(coffee.getName());
         holder.mTvCoffeeDesc.setText(coffee.getDescription());
         holder.mTvCoffeePrice.setText(coffee.printPrice());
-        holder.mClItemMenu.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext, holder.mIvCoffeePicture));
-        holder.mIvCoffeePicture.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext, holder.mIvCoffeePicture));
-        ViewCompat.setTransitionName(holder.mIvCoffeePicture, String.valueOf(position) + "_image");
+        holder.itemView.setOnClickListener(ClickListeners.menuCoffeeListener(coffee, mContext, holder.mIvCoffeePicture));
+        ViewCompat.setTransitionName(holder.mIvCoffeePicture, String.valueOf(position) + C.TRANSITION_POSFIX);
         Picasso.with(mContext).load(coffee.getImageURL()).placeholder(R.drawable.placeholder).into(holder.mIvCoffeePicture);
     }
 

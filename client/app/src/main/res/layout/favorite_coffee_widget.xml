@@ -8,13 +8,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/widget_margin"
-        android:contentDescription="@string/appwidget_text"
         android:ellipsize="end"
         android:maxLines="4"
         android:minLines="1"
-        android:text="asdasdas"
         android:textColor="#ffffff"
-        android:textSize="14sp"
+        android:textSize="@dimen/default_subtitle_text_size"
         android:textStyle="bold|italic" />
 
     <TextView
@@ -22,10 +20,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appwidget_text"
-        android:text="ORDER NOW!"
         android:layout_marginLeft="@dimen/widget_margin"
+        android:text="@string/appwidget_text"
         android:textColor="#ffffff"
-        android:textSize="14sp"
+        android:textSize="@dimen/default_subtitle_text_size"
         android:textStyle="bold|italic" />
 
 </RelativeLayout>

@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toolbar;
 
 import org.parceler.Parcels;
 
@@ -22,10 +21,8 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import eu.rodrigocamara.myladybucks.R;
-import eu.rodrigocamara.myladybucks.adapters.OrderAdapter;
 import eu.rodrigocamara.myladybucks.adapters.OrderDetailAdapter;
 import eu.rodrigocamara.myladybucks.pojos.Coffee;
-import eu.rodrigocamara.myladybucks.pojos.Order;
 import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.Utils;
 

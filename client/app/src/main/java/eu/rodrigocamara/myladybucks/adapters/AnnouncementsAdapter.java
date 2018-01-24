@@ -53,7 +53,7 @@ public class AnnouncementsAdapter extends RecyclerView.Adapter<AnnouncementsAdap
     public void onBindViewHolder(final MyViewHolder holder, int position) {
         Announcement announcement = announcementList.get(position);
         Picasso.with(mContext).load(announcement.getImageUrl()).placeholder(R.drawable.placeholder).into(holder.ivAdImage);
-        holder.ivAdImage.setOnClickListener(clickListener(announcement));
+        holder.itemView.setOnClickListener(clickListener(announcement));
     }
 
     private View.OnClickListener clickListener(final Announcement announcement) {

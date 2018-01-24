@@ -21,14 +21,15 @@ import eu.rodrigocamara.myladybucks.listeners.ClickListeners;
 import eu.rodrigocamara.myladybucks.listeners.TextChangeListeners;
 import eu.rodrigocamara.myladybucks.pojos.Coffee;
 import eu.rodrigocamara.myladybucks.interfaces.QuantityHandler;
+import eu.rodrigocamara.myladybucks.utils.C;
 
 /**
  * Created by Rodrigo Câmara on 04/01/2018.
  */
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder> {
-    Context mContext;
-    List<Coffee> orderList;
+    private Context mContext;
+    private List<Coffee> orderList;
     private QuantityHandler quantityHandler;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -70,7 +71,7 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.MyViewHolder
         Coffee coffee = orderList.get(position);
         holder.mTvCoffeeName.setText(coffee.getName());
         holder.mTvCoffeePrice.setText(Currency.getInstance(Locale.getDefault()).getSymbol() + (coffee.getPrice()) * coffee.getQuantity());
-        holder.mTvQuantity.setText(String.format("%02d", coffee.getQuantity()));
+        holder.mTvQuantity.setText(String.format(C.FORMAT_DIGITS, coffee.getQuantity()));
         holder.mIvRemoveCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(coffee, holder.mTvQuantity, holder.mTvCoffeePrice, true, position));
         holder.mIvAddCoffee.setOnClickListener(ClickListeners.controlCoffeeQuantityListener(coffee, holder.mTvQuantity, holder.mTvCoffeePrice, false, position));
         holder.mTvQuantity.addTextChangedListener(TextChangeListeners.coffeeQuantityListener(quantityHandler, holder.mIvRemoveCoffee));

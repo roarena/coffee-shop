@@ -19,6 +19,7 @@ import eu.rodrigocamara.myladybucks.R;
 import eu.rodrigocamara.myladybucks.listeners.ClickListeners;
 import eu.rodrigocamara.myladybucks.pojos.Coffee;
 import eu.rodrigocamara.myladybucks.pojos.Order;
+import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.Utils;
 
 /**
@@ -26,8 +27,8 @@ import eu.rodrigocamara.myladybucks.utils.Utils;
  */
 
 public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.MyViewHolder> {
-    List<Order> orderList;
-    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private List<Order> orderList;
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
     private Context context;
     private int mTotalValue;
     private int widgetId = 0;
@@ -101,13 +102,13 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.My
 
     private int setStatusColor(String statusColor) {
         switch (statusColor) {
-            case "NEW":
+            case C.STATUS_NEW:
                 return context.getResources().getColor(R.color.colorPrimary);
-            case "IN PROGRESS":
+            case C.STATUS_IN_PROGRESS:
                 return context.getResources().getColor(R.color.status_progress);
-            case "READY":
+            case C.STATUS_READY:
                 return context.getResources().getColor(R.color.status_ready);
-            case "FINISHED":
+            case C.STATUS_FINISHED:
                 return context.getResources().getColor(R.color.status_finished);
             default:
                 return context.getResources().getColor(R.color.colorPrimary);
