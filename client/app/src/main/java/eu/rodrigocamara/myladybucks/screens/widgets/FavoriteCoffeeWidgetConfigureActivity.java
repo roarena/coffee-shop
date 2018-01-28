@@ -125,9 +125,6 @@ public class FavoriteCoffeeWidgetConfigureActivity extends Activity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                if (!dataSnapshot.exists()) {
-
-                }
                 refreshListValues(dataSnapshot.getValue(Order.class), true);
             }
 

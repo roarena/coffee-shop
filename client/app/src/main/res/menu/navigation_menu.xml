@@ -1,43 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/action_home"
             android:checked="true"
             android:enabled="true"
             android:icon="@drawable/home"
-            android:title="Home" />
+            android:title="@string/menu_home" />
         <item
             android:id="@+id/action_menu"
             android:enabled="true"
             android:icon="@drawable/book"
-            android:title="Menu" />
+            android:title="@string/menu_menu" />
 
         <item
             android:id="@+id/action_purchases"
             android:enabled="true"
             android:icon="@drawable/cart"
-            android:title="Purchases" />
-        <item android:title="Account">
+            android:title="@string/menu_purchases" />
+        <item android:title="@string/menu_account">
             <menu>
                 <group android:checkableBehavior="single">
                     <item
                         android:id="@+id/action_profile"
                         android:enabled="true"
                         android:icon="@drawable/account"
-                        android:title="Profile" />
+                        android:title="@string/menu_profile" />
                 </group>
             </menu>
         </item>
-        <item android:title="About">
+        <item android:title="@string/menu_about">
             <menu>
                 <group android:checkableBehavior="single">
                     <item
                         android:id="@+id/action_git"
                         android:enabled="true"
                         android:icon="@drawable/github_circle"
-                        android:title="Git Hub" />
+                        android:title="@string/menu_github" />
                 </group>
             </menu>
         </item>

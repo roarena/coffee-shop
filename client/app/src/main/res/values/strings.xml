@@ -45,10 +45,19 @@
     <string name="contentdesc_more_coffee">Button for adding more of this coffee.</string>
     <string name="contentdesc_less_coffee">Button for removing this coffee.</string>
     <string name="contentdesc_delete_coffee">Button for delete this coffee.</string>
+    <string name="contentdesc_fab">Button to show Coffee Menu.</string>
     <string name="contentdesc_title_image">Image for title</string>
     <string name="dialog_place_order">Placing your order</string>
     <string name="please_wait">Please wait...</string>
     <string name="status_new">NEW</string>
     <string name="orders_title">Order(s)</string>
     <string name="favorite_widget">This order was added as favorite for this widget</string>
+
+    <string name="menu_home">Home</string>
+    <string name="menu_purchases">Purchases</string>
+    <string name="menu_account">Account</string>
+    <string name="menu_github">GitHub</string>
+    <string name="menu_profile">Profile</string>
+    <string name="menu_about">About</string>
+    <string name="menu_menu">Menu</string>
 </resources>
