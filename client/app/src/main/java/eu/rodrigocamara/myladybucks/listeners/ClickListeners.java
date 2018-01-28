@@ -44,6 +44,7 @@ import eu.rodrigocamara.myladybucks.utils.C;
 import eu.rodrigocamara.myladybucks.utils.FirebaseHelper;
 import eu.rodrigocamara.myladybucks.utils.FragmentHelper;
 import eu.rodrigocamara.myladybucks.utils.OrderHelper;
+import eu.rodrigocamara.myladybucks.utils.PlaceOrderTask;
 import eu.rodrigocamara.myladybucks.utils.SharedPreferenceHelper;
 
 import static android.app.Activity.RESULT_OK;
@@ -182,31 +183,8 @@ public class ClickListeners {
         return new View.OnClickListener() {
             @Override
             public void onClick(final View view) {
-                final LoadingDialog loadingDialog = new LoadingDialog((AppCompatActivity) context);
-                loadingDialog.show();
-
-                FirebaseHelper.getDatabase().getReference().child(C.DB_ORDERS_REFERENCE).child(FirebaseAuth.getInstance().getCurrentUser().getUid()).child(String.valueOf(Calendar.getInstance().getTimeInMillis())).setValue(new Order(order, Calendar.getInstance().getTime()))
-                        .addOnSuccessListener(
-                                new OnSuccessListener() {
-                                    @Override
-                                    public void onSuccess(Object o) {
-                                        loadingDialog.dismiss();
-                                        OrderHelper.getInstance().getOrderList().clear();
-                                        try {
-                                            Snackbar.make(view, R.string.order_requested, Snackbar.LENGTH_SHORT).show();
-                                            FragmentHelper.doFragmentTransaction(HomeFragment.class.newInstance(), (AppCompatActivity) context);
-                                        } catch (Exception e) {
-                                            e.printStackTrace();
-                                        }
-                                    }
-                                })
-                        .addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                loadingDialog.dismiss();
-                                Snackbar.make(view, R.string.snack_bar_item_error, Snackbar.LENGTH_SHORT).show();
-                            }
-                        });
+                PlaceOrderTask placeOrderTask = new PlaceOrderTask(context, view);
+                placeOrderTask.execute(order);
             }
         };
     }
