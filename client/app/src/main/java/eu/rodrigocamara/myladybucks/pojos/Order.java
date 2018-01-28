@@ -12,9 +12,18 @@ import java.util.List;
  */
 @Parcel
 public class Order implements Comparable {
-    private List<Coffee> mCoffeeList;
-    private String mStatus;
-    private String mUserID;
+    public List<Coffee> mCoffeeList;
+    public String mStatus;
+    public String mUserID;
+
+    public Date getmDate() {
+        return mDate;
+    }
+
+    public void setmDate(Date mDate) {
+        this.mDate = mDate;
+    }
+
     private Date mDate;
 
     public Order() {
@@ -51,17 +60,9 @@ public class Order implements Comparable {
         this.mCoffeeList = mCoffeeList;
     }
 
-    public Date getDate() {
-        return mDate;
-    }
-
-    public void setDate(Date date) {
-        this.mDate = date;
-    }
-
     @Override
     public int compareTo(@NonNull Object o) {
-        Date compareDate = ((Order) o).getDate();
+        Date compareDate = ((Order) o).getmDate();
         return compareDate.compareTo(this.mDate);
     }
 }

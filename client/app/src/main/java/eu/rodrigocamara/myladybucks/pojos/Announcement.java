@@ -1,16 +1,19 @@
 package eu.rodrigocamara.myladybucks.pojos;
 
+import android.support.annotation.Keep;
+
 /**
  * Created by rodri on 30/12/2017.
  */
-
+@Keep
 public class Announcement {
-    private String url;
-    private String imageUrl;
+    public String url;
+    public String imageUrl;
 
-    public Announcement(){
+    public Announcement() {
 
     }
+
     public Announcement(String url, String imageUrl) {
         this.url = url;
         this.imageUrl = imageUrl;

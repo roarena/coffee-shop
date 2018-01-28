@@ -1,5 +1,7 @@
 package eu.rodrigocamara.myladybucks.pojos;
 
+import android.support.annotation.Keep;
+
 import org.parceler.Parcel;
 
 import java.util.Currency;
@@ -10,13 +12,34 @@ import eu.rodrigocamara.myladybucks.utils.C;
 /**
  * Created by Rodrigo Câmara on 04/01/2018.
  */
-@Parcel
+@Parcel @Keep
 public class Coffee {
-    private String name;
-    private String description;
-    private String imageURL;
-    private int price;
-    private int quantity;
+    public String name;
+    public String description;
+    public String imageURL;
+    public int price;
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public int quantity;
 
     public Coffee() {
 
@@ -33,32 +56,16 @@ public class Coffee {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getImageURL() {
         return imageURL;
     }
 
-    public void setImageURL(String imageURL) {
-        this.imageURL = imageURL;
-    }
-
     public int getPrice() {
         return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
     }
 
     public String printPrice() {
@@ -69,7 +76,4 @@ public class Coffee {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
 }

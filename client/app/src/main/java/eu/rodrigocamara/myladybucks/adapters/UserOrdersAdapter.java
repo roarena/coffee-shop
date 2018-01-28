@@ -73,7 +73,7 @@ public class UserOrdersAdapter extends RecyclerView.Adapter<UserOrdersAdapter.My
     @Override
     public void onBindViewHolder(final UserOrdersAdapter.MyViewHolder holder, int position) {
         Order order = orderList.get(position);
-        holder.mTvDate.setText(dateFormat.format(order.getDate()));
+        holder.mTvDate.setText(dateFormat.format(order.getmDate()));
         holder.mTvCoffees.setText(getCoffees(order.getmCoffeeList()));
         holder.mTvTotalPrice.setText(Currency.getInstance(Locale.getDefault()).getSymbol() + String.valueOf(Utils.getFinalOrderValue(order.getmCoffeeList())));
         holder.mTvOrderStatus.setText(order.getmStatus());

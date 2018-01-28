@@ -21,3 +21,6 @@
 #-renamesourcefileattribute SourceFile
 -dontwarn com.google.android.gms.**
 -dontwarn com.squareup.picasso.**
+-keep interface org.parceler.Parcel
+-keep @org.parceler.Parcel class * { *; }
+-keep class **$$Parcelable { *; }
