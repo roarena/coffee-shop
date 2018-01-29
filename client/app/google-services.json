@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "414119019525",
+    "firebase_url": "https://mylady-bucks.firebaseio.com",
+    "project_id": "mylady-bucks",
+    "storage_bucket": "mylady-bucks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414119019525:android:3b72acf964d50d5a",
+        "android_client_info": {
+          "package_name": "eu.rodrigocamara.myladybucks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414119019525-m0to7mhposolluqdf8db6k0mck65lq9a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "eu.rodrigocamara.myladybucks",
+            "certificate_hash": "e751b6848d7542d39463e19b0dce6822311e2be1"
+          }
+        },
+        {
+          "client_id": "414119019525-mvfr8q5fh4s634mb3v7sjrmknpvv07gi.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAs4OKCIy9eWgX49zQeGFZAmG8kvkvU0Ww"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414119019525-mvfr8q5fh4s634mb3v7sjrmknpvv07gi.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
